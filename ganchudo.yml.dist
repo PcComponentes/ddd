@@ -1,0 +1,15 @@
+ganchudo:
+    inspectors:
+        -   name: 'Composer Validation'
+            command: 'composer.phar validate --strict'
+        -   name: 'Php Linter'
+            command: 'php -l <iterator>'
+            iterator:
+                in: ['src', 'tests']
+                exclude: []
+                file: '*.php'
+        -   name: 'Php Code Sniffer'
+            command: 'vendor/bin/phpcs --standard=phpcs.xml.dist'
+        -   name: 'PhpUnit'
+            command: 'vendor/bin/phpunit --configuration phpunit.xml.dist --no-coverage --colors=always'
+            timeout: 3600

@@ -1,0 +1,35 @@
+{
+  "name": "pccomponentes/ddd",
+  "description": "Mini Framework to create projects with hexagonal architecture and domain driven design",
+  "authors": [
+    {
+      "name": "Aaron Bernabeu Rodríguez",
+      "email": "aaron.bernabeu@pccomponentes.com"
+    },
+    {
+      "name": "Juan G. Rodríguez Carrión",
+      "email": "juan.rodriguez@pccomponentes.com"
+    }
+  ],
+  "license": "MIT",
+  "type": "library",
+  "autoload": {
+    "psr-4": {
+      "Pccomponentes\\Ddd\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Pccomponentes\\Ddd\\Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": "^7.2",
+    "ramsey/uuid": "^3.7"
+  },
+  "require-dev": {
+    "pccomponentes/ganchudo": "^1.0",
+    "phpunit/phpunit": "^7.3",
+    "squizlabs/php_codesniffer": "^3.3"
+  }
+}
