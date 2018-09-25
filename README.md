@@ -31,7 +31,7 @@ Y las normas son:
 Las herramientas que se proporcionan en este mini framework, ayudan en algunos de estos puntos.
 
 ### 1.2 Event Sourcing
-La capa de dominio se compone de modelos (o entidades) mutables y ricos, con servicios e interfaces de repositorio que los persisten vía peticines CRUD a una tabla concreta de dicho modelo. Event sourcing va mas allá, y consiste en persistir en una única tabla todos los eventos que ocurran en tu dominio de negocio. Los modelos se montarán ejecutando secuencialmente dichos eventos.
+La capa de dominio se compone de modelos (o entidades) mutables y ricos, con servicios e interfaces de repositorio que los persisten vía peticiones CRUD a una tabla concreta de dicho modelo. Event sourcing va mas allá, y consiste en persistir en una única tabla todos los eventos que ocurran en tu dominio de negocio. Los modelos se montarán ejecutando secuencialmente dichos eventos.
 
 Este modelo, se le suele conocer como agregado raíz, y puede estar compuesto por otros pequeños modelos, conocidos como agregados, que no puede ser gestionados de forma independiente fuera de este agregado raíz.
 Todas las operaciones realizadas sobre el modelo generarán un evento. La idea es invertir este proceso, y que sea el evento mismo, el que ejecute la operación sobre un modelo.
