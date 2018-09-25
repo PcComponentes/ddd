@@ -1,13 +1,14 @@
 <?php
 /**
  * This disaster was designed by
- * @author Juan G. Rodríguez Carrión <jgrodriguezcarrion@gmail.com>
+ * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
  */
 declare(strict_types=1);
 namespace Pccomponentes\Ddd\Util;
 
 class AssocAccessor
 {
+    const TEST = 1;
     public static function get(array $array, $index)
     {
         $indexes = \explode('.', $index);
