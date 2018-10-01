@@ -16,7 +16,7 @@ interface EventStoreRepository
     public function get(Uuid $aggregateId): array;
     public function getSince(Uuid $aggregateId, DateTimeValueObject $since): array;
 
-    public function getByMessageId(Uuid $messageId): DomainEvent;
+    public function getByMessageId(Uuid $messageId): ?DomainEvent;
     public function getByMessageName(string $messageName): array;
     public function getByMessageNameSince(string $messageName, DateTimeValueObject $since): array;
 }
