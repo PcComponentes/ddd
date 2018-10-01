@@ -11,7 +11,7 @@ use Pccomponentes\Ddd\Domain\Model\ValueObject\Uuid;
 
 interface SnapshotStoreRepository
 {
-    public function add(Snapshot $snapshot): void;
+    public function set(Snapshot $snapshot): void;
     public function get(Uuid $aggregateId): ?Snapshot;
     public function remove(Snapshot $snapshot): void;
 }
