@@ -17,4 +17,10 @@ class DateTimeValueObject extends \DateTimeImmutable implements ValueObject
     {
         return new static($str, new \DateTimeZone('UTC'));
     }
+
+    final public static function fromTimestamp(int $timestamp): self
+    {
+        $dateTime = \DateTimeImmutable::createFromFormat('U', (string) $timestamp);
+        return static::from($dateTime->format(\DATE_ATOM));
+    }
 }
