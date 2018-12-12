@@ -8,7 +8,7 @@ namespace Pccomponentes\Ddd\Domain\Model\ValueObject;
 
 abstract class EnumValueObject extends StringValueObject
 {
-    private static $allowedValues = false;
+    private static $allowedValues;
 
     protected function __construct($value)
     {
@@ -18,12 +18,12 @@ abstract class EnumValueObject extends StringValueObject
 
     final public static function allowedValues(): array
     {
-        if (false === self::$allowedValues) {
+        if (!isset(self::$allowedValues[static::class])) {
             $reflection = new \ReflectionClass(static::class);
-            self::$allowedValues = $reflection->getConstants();
+            self::$allowedValues[static::class] = $reflection->getConstants();
         }
 
-        return self::$allowedValues;
+        return self::$allowedValues[static::class];
     }
 
     private function guard($value): void
