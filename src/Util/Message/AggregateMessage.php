@@ -13,15 +13,18 @@ abstract class AggregateMessage extends Message
 {
     private $aggregateId;
     private $occurredOn;
+    private $aggregateVersion;
 
     final protected function __construct(
         Uuid $messageId,
         Uuid $aggregateId,
+        int $aggregateVersion,
         DateTimeValueObject $occurredOn,
         array $payload
     ) {
         parent::__construct($messageId, $payload);
         $this->aggregateId = $aggregateId;
+        $this->aggregateVersion = $aggregateVersion;
         $this->occurredOn = $occurredOn;
     }
 
@@ -41,6 +44,7 @@ abstract class AggregateMessage extends Message
             parent::jsonSerialize(),
             [
                 'aggregate_id' => $this->aggregateId,
+                'aggregate_version' => $this->aggregateVersion,
                 'occurred_on' => $this->occurredOn
             ]
         );
@@ -50,12 +54,18 @@ abstract class AggregateMessage extends Message
         Uuid $messageId,
         Uuid $aggregateId,
         DateTimeValueObject $occurredOn,
-        array $payload
+        array $payload,
+        int $aggregateVersion = 0
     ): self {
-        $message = new static($messageId, $aggregateId, $occurredOn, $payload);
+        $message = new static($messageId, $aggregateId, $aggregateVersion, $occurredOn, $payload);
         $message->assertPayload();
 
         return $message;
+    }
+
+    final public function aggregateVersion(): int
+    {
+        return $this->aggregateVersion;
     }
 
     abstract protected function assertPayload(): void;
