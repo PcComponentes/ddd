@@ -17,10 +17,11 @@ class DomainEventTested extends DomainEvent
     public static function test(
         Uuid $messageId,
         Uuid $aggregateId,
+        int $aggregateVersion,
         DateTimeValueObject $occurredOn,
         array $payload
     ): self {
-        $event = new self($messageId, $aggregateId, $occurredOn, $payload);
+        $event = new self($messageId, $aggregateId, $aggregateVersion, $occurredOn, $payload);
         $event->assertPayloadCalled = false;
 
         return $event;

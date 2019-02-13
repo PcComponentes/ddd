@@ -14,9 +14,9 @@ class AggregateRootTested extends AggregateRoot
 {
     private $applyDomainEventTestedEvent;
 
-    public static function test(Uuid $aggregateId): self
+    public static function test(Uuid $aggregateId, int $aggregateVersion): self
     {
-        return new self($aggregateId);
+        return new self($aggregateId, $aggregateVersion);
     }
 
     public static function modelName(): string
