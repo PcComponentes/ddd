@@ -31,7 +31,7 @@ abstract class EnumValueObject extends StringValueObject
         if (false === $this->isValid($value)) {
             throw new \InvalidArgumentException(
                 sprintf(
-                    '<%s> not allowed value, allowed values: <%s> for enum class <$s>',
+                    '<%s> not allowed value, allowed values: <%s> for enum class <%s>',
                     $value,
                     implode(' ', static::allowedValues()),
                     static::class
