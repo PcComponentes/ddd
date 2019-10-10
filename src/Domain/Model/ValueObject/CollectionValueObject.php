@@ -17,12 +17,16 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
 
     public function current()
     {
-        return \current($this->items);
+        $item = \current($this->items);
+
+        return $item ? $item : null;
     }
 
     public function next()
     {
-        \next($this->items);
+        $item = \next($this->items);
+
+        return $item ? $item : null;
     }
 
     public function key()
@@ -37,7 +41,9 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
 
     public function rewind()
     {
-        \reset($this->items);
+        $item = \reset($this->items);
+
+        return $item ? $item : null;
     }
 
     public function count()
@@ -57,7 +63,7 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
 
     public function map(callable $func): CollectionValueObject
     {
-        return new self(\array_map($func, $this->items));
+        return new static(\array_map($func, $this->items));
     }
 
     public function reduce(callable $func, $initial)
