@@ -34,4 +34,9 @@ abstract class StringValueObject implements ValueObject
     {
         return new static($value);
     }
+    
+    public function __toString(): string
+    {
+        return $this->value;
+    }
 }
