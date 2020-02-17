@@ -23,5 +23,10 @@ abstract class SimpleMessage extends Message
         return $message;
     }
 
+    final public function accept(MessageVisitor $visitor): void
+    {
+        $visitor->visitSimpleMessage($this);
+    }
+
     abstract protected function assertPayload(): void;
 }

@@ -68,5 +68,10 @@ abstract class AggregateMessage extends Message
         return $this->aggregateVersion;
     }
 
+    final public function accept(MessageVisitor $visitor): void
+    {
+        $visitor->visitAggregateMessage($this);
+    }
+
     abstract protected function assertPayload(): void;
 }

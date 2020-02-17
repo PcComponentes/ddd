@@ -8,6 +8,7 @@ namespace Pccomponentes\Ddd\Tests\Util\Message;
 
 use Pccomponentes\Ddd\Domain\Model\ValueObject\Uuid;
 use Pccomponentes\Ddd\Util\Message\Message;
+use Pccomponentes\Ddd\Util\Message\MessageVisitor;
 
 class MessageTested extends Message
 {
@@ -40,5 +41,10 @@ class MessageTested extends Message
     public static function messageType(): string
     {
         return self::$messageType;
+    }
+
+    public function accept(MessageVisitor $visitor): void
+    {
+        //nothing for this case
     }
 }
