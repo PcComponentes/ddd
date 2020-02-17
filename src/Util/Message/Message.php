@@ -62,6 +62,7 @@ abstract class Message implements \JsonSerializable
         );
     }
 
+    abstract public function accept(MessageVisitor $visitor): void;
     abstract public static function messageName(): string;
     abstract public static function messageVersion(): string;
     abstract public static function messageType(): string;
