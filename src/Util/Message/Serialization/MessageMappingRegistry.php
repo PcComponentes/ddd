@@ -11,7 +11,7 @@ final class MessageMappingRegistry
         $this->registry = $registry;
     }
 
-    public function execute(string $messageName): ?string
+    public function __invoke(string $messageName): ?string
     {
         if (\array_key_exists($messageName, $this->registry)) {
             return $this->registry[$messageName];
