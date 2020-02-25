@@ -1,0 +1,59 @@
+<?php declare(strict_types=1);
+
+namespace Pccomponentes\Ddd\Util\Message\Serialization\JsonApi;
+
+final class AggregateMessageStream
+{
+    private $messageId;
+    private $aggregateId;
+    private $occurredOn;
+    private $messageName;
+    private $payload;
+    private $aggregateVersion;
+
+    public function __construct(
+        string $messageId,
+        string $aggregateId,
+        int $occurredOn,
+        string $messageName,
+        int $aggregateVersion,
+        string $payload
+    ) {
+        $this->messageId = $messageId;
+        $this->aggregateId = $aggregateId;
+        $this->occurredOn = $occurredOn;
+        $this->messageName = $messageName;
+        $this->payload = $payload;
+        $this->aggregateVersion = $aggregateVersion;
+    }
+
+    public function messageId(): string
+    {
+        return $this->messageId;
+    }
+
+    public function aggregateId(): string
+    {
+        return $this->aggregateId;
+    }
+
+    public function occurredOn(): int
+    {
+        return $this->occurredOn;
+    }
+
+    public function messageName(): string
+    {
+        return $this->messageName;
+    }
+
+    public function payload(): string
+    {
+        return $this->payload;
+    }
+
+    public function aggregateVersion(): int
+    {
+        return $this->aggregateVersion;
+    }
+}
