@@ -4,9 +4,9 @@
  * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
  */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Tests\Domain\Model\ValueObject;
+namespace PcComponentes\Ddd\Tests\Domain\Model\ValueObject;
 
-use Pccomponentes\Ddd\Domain\Model\ValueObject\CollectionValueObject;
+use PcComponentes\Ddd\Domain\Model\ValueObject\CollectionValueObject;
 use PHPUnit\Framework\TestCase;
 
 class CollectionValueObjectTest extends TestCase

@@ -4,9 +4,9 @@
  * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
  */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Tests\Aplication;
+namespace PcComponentes\Ddd\Tests\Aplication;
 
-use Pccomponentes\Ddd\Application\Command;
+use PcComponentes\Ddd\Application\Command;
 use PHPUnit\Framework\TestCase;
 
 class CommandTest extends TestCase

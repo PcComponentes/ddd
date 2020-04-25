@@ -1,14 +1,11 @@
 <?php
-/**
- * This disaster was designed by
- * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
- */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Domain\Model\ValueObject;
+
+namespace PcComponentes\Ddd\Domain\Model\ValueObject;
 
 abstract class FloatValueObject implements ValueObject
 {
-    private $value;
+    private float $value;
 
     protected function __construct(float $value)
     {
@@ -22,12 +19,12 @@ abstract class FloatValueObject implements ValueObject
 
     public function equalTo(FloatValueObject $other): bool
     {
-        return \get_class($other) === static::class && $other->value === $this->value;
+        return static::class === \get_class($other) && $other->value === $this->value;
     }
 
     public function isBiggerThan(FloatValueObject $other): bool
     {
-        return \get_class($other) === static::class && $this->value > $other->value;
+        return static::class === \get_class($other) && $this->value > $other->value;
     }
 
     final public function jsonSerialize(): float

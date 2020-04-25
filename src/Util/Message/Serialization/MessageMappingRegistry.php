@@ -1,10 +1,11 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
-namespace Pccomponentes\Ddd\Util\Message\Serialization;
+namespace PcComponentes\Ddd\Util\Message\Serialization;
 
 final class MessageMappingRegistry
 {
-    private $registry;
+    private array $registry;
 
     public function __construct(array $registry)
     {

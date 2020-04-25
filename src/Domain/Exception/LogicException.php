@@ -1,11 +1,11 @@
 <?php
 declare(strict_types=1);
 
-namespace Pccomponentes\Ddd\Domain\Exception;
+namespace PcComponentes\Ddd\Domain\Exception;
 
 abstract class LogicException extends DomainException
 {
-    public abstract function data(): array;
+    abstract public function data(): array;
 
     final public function jsonSerialize(): array
     {

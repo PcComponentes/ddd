@@ -1,17 +1,22 @@
 <?php
-/**
- * This disaster was designed by
- * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
- */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Util\Message;
 
-use Pccomponentes\Ddd\Domain\Model\ValueObject\Uuid;
+namespace PcComponentes\Ddd\Util\Message;
+
+use PcComponentes\Ddd\Domain\Model\ValueObject\Uuid;
 
 abstract class Message implements \JsonSerializable
 {
-    private $messageId;
-    private $payload;
+    private Uuid $messageId;
+    private array $payload;
+
+    abstract public static function messageName(): string;
+
+    abstract public static function messageVersion(): string;
+
+    abstract public static function messageType(): string;
+
+    abstract public function accept(MessageVisitor $visitor): void;
 
     protected function __construct(Uuid $messageId, array $payload)
     {
@@ -37,7 +42,7 @@ abstract class Message implements \JsonSerializable
             'name' => static::messageName(),
             'version' => static::messageVersion(),
             'type' => static::messageType(),
-            'payload' => $this->messagePayload()
+            'payload' => $this->messagePayload(),
         ];
     }
 
@@ -47,23 +52,22 @@ abstract class Message implements \JsonSerializable
             $payload,
             function ($item, $currentIndex) use ($index) {
                 $newIndex = "{$index}.{$currentIndex}";
-                switch (true) {
-                    case \is_object($item):
-                        throw new \InvalidArgumentException(
-                            sprintf(
-                                'Attribute %s is an object. Payload parameters only can be primitive.',
-                                $newIndex
-                            )
-                        );
-                    case \is_array($item):
-                        $this->assertPrimitivePayload($item, $newIndex);
+
+                if (true === \is_object($item)) {
+                    throw new \InvalidArgumentException(
+                        \sprintf(
+                            'Attribute %s is an object. Payload parameters only can be primitive.',
+                            $newIndex,
+                        ),
+                    );
                 }
-            }
+
+                if (true !== \is_array($item)) {
+                    return;
+                }
+
+                $this->assertPrimitivePayload($item, $newIndex);
+            },
         );
     }
-
-    abstract public function accept(MessageVisitor $visitor): void;
-    abstract public static function messageName(): string;
-    abstract public static function messageVersion(): string;
-    abstract public static function messageType(): string;
 }

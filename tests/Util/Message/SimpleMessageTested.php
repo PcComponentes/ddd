@@ -4,9 +4,9 @@
  * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
  */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Tests\Util\Message;
+namespace PcComponentes\Ddd\Tests\Util\Message;
 
-use Pccomponentes\Ddd\Util\Message\SimpleMessage;
+use PcComponentes\Ddd\Util\Message\SimpleMessage;
 
 class SimpleMessageTested extends SimpleMessage
 {

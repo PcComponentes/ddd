@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
-namespace Pccomponentes\Ddd\Util\Message\Serialization\JsonApi;
+namespace PcComponentes\Ddd\Util\Message\Serialization\JsonApi;
 
-use Pccomponentes\Ddd\Util\Message\Serialization\SimpleMessageSerializable;
-use Pccomponentes\Ddd\Util\Message\SimpleMessage;
+use PcComponentes\Ddd\Util\Message\Serialization\SimpleMessageSerializable;
+use PcComponentes\Ddd\Util\Message\SimpleMessage;
 
 final class SimpleMessageJsonApiSerializable implements SimpleMessageSerializable
 {
@@ -16,7 +17,9 @@ final class SimpleMessageJsonApiSerializable implements SimpleMessageSerializabl
                     'type' => $message::messageName(),
                     'attributes' => $message->messagePayload(),
                 ],
-            ]
+            ],
+            \JSON_THROW_ON_ERROR,
+            512,
         );
     }
 }

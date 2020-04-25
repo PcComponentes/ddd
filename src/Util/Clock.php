@@ -1,12 +1,14 @@
 <?php
 /**
  * This disaster was designed by
+ *
  * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
  */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Util;
 
-use Pccomponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
+namespace PcComponentes\Ddd\Util;
+
+use PcComponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
 
 class Clock
 {

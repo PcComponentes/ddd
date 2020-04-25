@@ -1,16 +1,17 @@
 <?php
 declare(strict_types=1);
 
-namespace Pccomponentes\Ddd\Domain\Exception;
+namespace PcComponentes\Ddd\Domain\Exception;
 
 abstract class AggregateException extends DomainException
 {
-    public abstract function id(): string;
-    public abstract function resource(): string;
+    abstract public function id(): string;
+
+    abstract public function resource(): string;
   
     final public function jsonSerialize(): array
     {
-        return  [
+        return [
             'id' => $this->id(),
             'resource' => $this->resource(),
         ];

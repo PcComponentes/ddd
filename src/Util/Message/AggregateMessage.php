@@ -1,19 +1,18 @@
 <?php
-/**
- * This disaster was designed by
- * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
- */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Util\Message;
 
-use Pccomponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
-use Pccomponentes\Ddd\Domain\Model\ValueObject\Uuid;
+namespace PcComponentes\Ddd\Util\Message;
+
+use PcComponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
+use PcComponentes\Ddd\Domain\Model\ValueObject\Uuid;
 
 abstract class AggregateMessage extends Message
 {
-    private $aggregateId;
-    private $occurredOn;
-    private $aggregateVersion;
+    private Uuid $aggregateId;
+    private DateTimeValueObject $occurredOn;
+    private int $aggregateVersion;
+
+    abstract protected function assertPayload(): void;
 
     final protected function __construct(
         Uuid $messageId,
@@ -23,9 +22,23 @@ abstract class AggregateMessage extends Message
         array $payload
     ) {
         parent::__construct($messageId, $payload);
+
         $this->aggregateId = $aggregateId;
         $this->aggregateVersion = $aggregateVersion;
         $this->occurredOn = $occurredOn;
+    }
+
+    final public static function fromPayload(
+        Uuid $messageId,
+        Uuid $aggregateId,
+        DateTimeValueObject $occurredOn,
+        array $payload,
+        int $aggregateVersion = 0
+    ): self {
+        $message = new static($messageId, $aggregateId, $aggregateVersion, $occurredOn, $payload);
+        $message->assertPayload();
+
+        return $message;
     }
 
     final public function aggregateId(): Uuid
@@ -45,22 +58,9 @@ abstract class AggregateMessage extends Message
             [
                 'aggregate_id' => $this->aggregateId,
                 'aggregate_version' => $this->aggregateVersion,
-                'occurred_on' => $this->occurredOn
-            ]
+                'occurred_on' => $this->occurredOn,
+            ],
         );
-    }
-
-    final public static function fromPayload(
-        Uuid $messageId,
-        Uuid $aggregateId,
-        DateTimeValueObject $occurredOn,
-        array $payload,
-        int $aggregateVersion = 0
-    ): self {
-        $message = new static($messageId, $aggregateId, $aggregateVersion, $occurredOn, $payload);
-        $message->assertPayload();
-
-        return $message;
     }
 
     final public function aggregateVersion(): int
@@ -72,6 +72,4 @@ abstract class AggregateMessage extends Message
     {
         $visitor->visitAggregateMessage($this);
     }
-
-    abstract protected function assertPayload(): void;
 }

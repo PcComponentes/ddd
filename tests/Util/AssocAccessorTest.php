@@ -4,9 +4,9 @@
  * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
  */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Tests\Util;
+namespace PcComponentes\Ddd\Tests\Util;
 
-use Pccomponentes\Ddd\Util\AssocAccessor;
+use PcComponentes\Ddd\Util\AssocAccessor;
 use PHPUnit\Framework\TestCase;
 
 class AssocAccessorTest extends TestCase

@@ -4,10 +4,10 @@
  * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
  */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Tests\Util;
+namespace PcComponentes\Ddd\Tests\Util;
 
-use Pccomponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
-use Pccomponentes\Ddd\Util\Clock;
+use PcComponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
+use PcComponentes\Ddd\Util\Clock;
 use PHPUnit\Framework\TestCase;
 
 class ClockTest extends TestCase
