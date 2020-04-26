@@ -4,10 +4,10 @@
  * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
  */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Tests\Util\Message;
+namespace PcComponentes\Ddd\Tests\Util\Message;
 
-use Pccomponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
-use Pccomponentes\Ddd\Domain\Model\ValueObject\Uuid;
+use PcComponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
+use PcComponentes\Ddd\Domain\Model\ValueObject\Uuid;
 use PHPUnit\Framework\TestCase;
 
 class AggregatemessageTest extends TestCase

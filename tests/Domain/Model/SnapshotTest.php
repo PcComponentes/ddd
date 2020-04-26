@@ -4,9 +4,9 @@
  * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
  */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Tests\Domain\Model;
+namespace PcComponentes\Ddd\Tests\Domain\Model;
 
-use Pccomponentes\Ddd\Domain\Model\Snapshot;
+use PcComponentes\Ddd\Domain\Model\Snapshot;
 use PHPUnit\Framework\TestCase;
 
 class SnapshotTest extends TestCase

@@ -1,12 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
-namespace Pccomponentes\Ddd\Util\Message\Serialization\JsonApi;
+namespace PcComponentes\Ddd\Util\Message\Serialization\JsonApi;
 
 final class SimpleMessageStream
 {
-    private $messageId;
-    private $messageName;
-    private $payload;
+    private string $messageId;
+    private string $messageName;
+    private string $payload;
 
     public function __construct(string $messageId, string $messageName, string $payload)
     {

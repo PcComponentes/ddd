@@ -1,15 +1,16 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
-namespace Pccomponentes\Ddd\Util\Message\Serialization\JsonApi;
+namespace PcComponentes\Ddd\Util\Message\Serialization\JsonApi;
 
 final class AggregateMessageStream
 {
-    private $messageId;
-    private $aggregateId;
-    private $occurredOn;
-    private $messageName;
-    private $payload;
-    private $aggregateVersion;
+    private string $messageId;
+    private string $aggregateId;
+    private int $occurredOn;
+    private string $messageName;
+    private string $payload;
+    private int $aggregateVersion;
 
     public function __construct(
         string $messageId,

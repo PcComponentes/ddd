@@ -4,9 +4,9 @@
  * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
  */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Tests\Aplication;
+namespace PcComponentes\Ddd\Tests\Aplication;
 
-use Pccomponentes\Ddd\Application\Query;
+use PcComponentes\Ddd\Application\Query;
 use PHPUnit\Framework\TestCase;
 
 class QueryTest extends TestCase

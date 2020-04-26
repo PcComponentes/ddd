@@ -1,14 +1,11 @@
 <?php
-/**
- * This disaster was designed by
- * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
- */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Domain\Model\ValueObject;
+
+namespace PcComponentes\Ddd\Domain\Model\ValueObject;
 
 class CollectionValueObject implements \Iterator, \Countable, ValueObject
 {
-    private $items;
+    private array $items;
 
     protected function __construct(array $items)
     {
@@ -67,17 +64,22 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
 
     public function isEmpty(): bool
     {
-        return $this->count() === 0;
+        return 0 === $this->count();
     }
 
     public function equalTo(CollectionValueObject $other): bool
     {
-        return \get_class($other) === static::class && $this->items == $other->items;
+        return static::class === \get_class($other) && $this->items === $other->items;
     }
 
     final public function jsonSerialize(): array
     {
         return $this->items;
+    }
+
+    public static function from(array $items)
+    {
+        return new static($items);
     }
 
     protected function addItem($item): self
@@ -91,14 +93,7 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
     protected function removeItem($item): self
     {
         return $this->filter(
-            function ($current) use ($item) {
-                return $current !== $item;
-            }
+            static fn ($current) => $current !== $item,
         );
-    }
-
-    public static function from(array $items)
-    {
-        return new static($items);
     }
 }

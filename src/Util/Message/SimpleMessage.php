@@ -1,15 +1,14 @@
 <?php
-/**
- * This disaster was designed by
- * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
- */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Util\Message;
 
-use Pccomponentes\Ddd\Domain\Model\ValueObject\Uuid;
+namespace PcComponentes\Ddd\Util\Message;
+
+use PcComponentes\Ddd\Domain\Model\ValueObject\Uuid;
 
 abstract class SimpleMessage extends Message
 {
+    abstract protected function assertPayload(): void;
+
     final protected function __construct(Uuid $messageId, array $payload)
     {
         parent::__construct($messageId, $payload);
@@ -27,6 +26,4 @@ abstract class SimpleMessage extends Message
     {
         $visitor->visitSimpleMessage($this);
     }
-
-    abstract protected function assertPayload(): void;
 }

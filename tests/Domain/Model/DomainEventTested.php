@@ -4,11 +4,11 @@
  * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
  */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Tests\Domain\Model;
+namespace PcComponentes\Ddd\Tests\Domain\Model;
 
-use Pccomponentes\Ddd\Domain\Model\DomainEvent;
-use Pccomponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
-use Pccomponentes\Ddd\Domain\Model\ValueObject\Uuid;
+use PcComponentes\Ddd\Domain\Model\DomainEvent;
+use PcComponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
+use PcComponentes\Ddd\Domain\Model\ValueObject\Uuid;
 
 class DomainEventTested extends DomainEvent
 {

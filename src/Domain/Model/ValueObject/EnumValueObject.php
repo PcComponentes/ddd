@@ -1,18 +1,16 @@
 <?php
-/**
- * This disaster was designed by
- * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
- */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Domain\Model\ValueObject;
+
+namespace PcComponentes\Ddd\Domain\Model\ValueObject;
 
 abstract class EnumValueObject extends StringValueObject
 {
-    private static $allowedValues;
+    private static array $allowedValues;
 
     protected function __construct($value)
     {
         $this->guard($value);
+
         parent::__construct($value);
     }
 
@@ -30,12 +28,12 @@ abstract class EnumValueObject extends StringValueObject
     {
         if (false === $this->isValid($value)) {
             throw new \InvalidArgumentException(
-                sprintf(
+                \sprintf(
                     '<%s> not allowed value, allowed values: <%s> for enum class <%s>',
                     $value,
-                    implode(' ', static::allowedValues()),
-                    static::class
-                )
+                    \implode(' ', static::allowedValues()),
+                    static::class,
+                ),
             );
         }
     }

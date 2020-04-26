@@ -4,11 +4,11 @@
  * @author Juan G. Rodríguez Carrión <juan.rodriguez@pccomponentes.com>
  */
 declare(strict_types=1);
-namespace Pccomponentes\Ddd\Tests\Util\Message;
+namespace PcComponentes\Ddd\Tests\Util\Message;
 
-use Pccomponentes\Ddd\Domain\Model\ValueObject\Uuid;
-use Pccomponentes\Ddd\Util\Message\Message;
-use Pccomponentes\Ddd\Util\Message\MessageVisitor;
+use PcComponentes\Ddd\Domain\Model\ValueObject\Uuid;
+use PcComponentes\Ddd\Util\Message\Message;
+use PcComponentes\Ddd\Util\Message\MessageVisitor;
 
 class MessageTested extends Message
 {
