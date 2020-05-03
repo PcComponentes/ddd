@@ -26,7 +26,6 @@ final class AggregateMessageStreamDeserializer implements AggregateMessageUnseri
         }
 
         $eventClass = ($this->registry)($message->messageName());
-        \assert($eventClass instanceof AggregateMessage);
 
         if (null === $eventClass || false === \class_exists($eventClass)) {
             throw new MessageClassNotFoundException(\sprintf('Message %s not found', $message->messageName()));
