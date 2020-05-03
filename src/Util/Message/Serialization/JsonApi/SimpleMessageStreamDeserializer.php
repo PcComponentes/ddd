@@ -25,7 +25,6 @@ final class SimpleMessageStreamDeserializer implements SimpleMessageUnserializab
         }
 
         $messageClass = ($this->registry)($message->messageName());
-        \assert($messageClass instanceof SimpleMessage);
 
         if (null === $messageClass || false === \class_exists($messageClass)) {
             throw new MessageClassNotFoundException(\sprintf('Message %s not found', $message->messageName()));
