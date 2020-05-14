@@ -69,7 +69,7 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
 
     public function equalTo(CollectionValueObject $other): bool
     {
-        return static::class === \get_class($other) && $this->items === $other->items;
+        return static::class === \get_class($other) && $this->items == $other->items;
     }
 
     final public function jsonSerialize(): array
