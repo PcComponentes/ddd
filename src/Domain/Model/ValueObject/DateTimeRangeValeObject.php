@@ -5,62 +5,62 @@ namespace PcComponentes\Ddd\Domain\Model\ValueObject;
 
 class DateTimeRangeValeObject implements ValueObject
 {
-    private DateTimeValueObject $startDate;
-    private DateTimeValueObject $endDate;
+    private DateTimeValueObject $start;
+    private DateTimeValueObject $end;
 
-    private function __construct(DateTimeValueObject $startDate, DateTimeValueObject $endDate)
+    private function __construct(DateTimeValueObject $start, DateTimeValueObject $end)
     {
-        $this->startDate = $startDate;
-        $this->endDate = $endDate;
+        $this->start = $start;
+        $this->end = $end;
     }
 
-    public static function from(DateTimeValueObject $startDate, DateTimeValueObject $endDate)
+    public static function from(DateTimeValueObject $start, DateTimeValueObject $end)
     {
-        if ($startDate >= $endDate) {
+        if ($start >= $end) {
             throw new \InvalidArgumentException('Start date can not be greater than the end date.');
         }
 
-        return new self($startDate, $endDate);
+        return new self($start, $end);
     }
 
-    public function startDate(): DateTimeValueObject
+    public function start(): DateTimeValueObject
     {
-        return $this->startDate;
+        return $this->start;
     }
 
-    public function endDate(): DateTimeValueObject
+    public function end(): DateTimeValueObject
     {
-        return $this->endDate;
+        return $this->end;
     }
 
     public function isInDate(): bool
     {
         $now = new DateTimeValueObject();
 
-        return $now >= $this->startDate && $now <= $this->endDate;
+        return $now >= $this->start && $now <= $this->end;
     }
 
     public function isExpired(): bool
     {
-        return (new DateTimeValueObject()) > $this->endDate;
+        return (new DateTimeValueObject()) > $this->end;
     }
 
     public function isNotStarted(): bool
     {
-        return (new DateTimeValueObject()) < $this->startDate;
+        return (new DateTimeValueObject()) < $this->start;
     }
 
     public function equalTo(DateTimeRangeValeObject $another): bool
     {
-        return $this->startDate->getTimestamp() === $another->startDate->getTimestamp()
-            && $this->endDate->getTimestamp() === $another->endDate->getTimestamp();
+        return $this->start->getTimestamp() === $another->start->getTimestamp()
+            && $this->end->getTimestamp() === $another->end->getTimestamp();
     }
 
     public function jsonSerialize(): array
     {
         return [
-            'startDate' => $this->startDate->jsonSerialize(),
-            'endDate' => $this->endDate->jsonSerialize(),
+            'start' => $this->start,
+            'end' => $this->end,
         ];
     }
 }

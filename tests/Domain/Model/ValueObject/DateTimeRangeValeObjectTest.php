@@ -17,8 +17,8 @@ final class DateTimeRangeValeObjectTest extends TestCase
             DateTimeValueObject::from('2019-12-31 23:59:59'),
         );
 
-        $this->assertEquals(DateTimeValueObject::from('2000-01-01 00:00:00'), $range->startDate());
-        $this->assertEquals(DateTimeValueObject::from('2019-12-31 23:59:59'), $range->endDate());
+        $this->assertEquals(DateTimeValueObject::from('2000-01-01 00:00:00'), $range->start());
+        $this->assertEquals(DateTimeValueObject::from('2019-12-31 23:59:59'), $range->end());
     }
 
     /** @test */
