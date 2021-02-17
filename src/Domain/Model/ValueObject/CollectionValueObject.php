@@ -54,7 +54,7 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
 
     public function map(callable $func): CollectionValueObject
     {
-        return new self(\array_map($func, $this->items));
+        return new static(\array_map($func, $this->items));
     }
 
     public function reduce(callable $func, $initial)
