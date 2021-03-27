@@ -34,7 +34,8 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^9.0",
-    "phpro/grumphp": "^1.3"
+    "phpro/grumphp": "^1.3",
+    "phpstan/phpstan": "^0.12.82"
   },
   "scripts": {
     "post-install-cmd": [
