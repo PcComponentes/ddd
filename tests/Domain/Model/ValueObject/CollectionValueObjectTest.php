@@ -1,6 +1,6 @@
 <?php
-
 declare(strict_types=1);
+
 namespace PcComponentes\Ddd\Tests\Domain\Model\ValueObject;
 
 use PcComponentes\Ddd\Domain\Model\ValueObject\CollectionValueObject;
@@ -53,8 +53,11 @@ class CollectionValueObjectTest extends TestCase
     {
         $collection = CollectionValueObject::from([5, 1, 4, 2, 3]);
         $sorted = $collection->sort(
-            function ($a , $b){
-                return $a > $b;
+            function ($a, $b) {
+                if ($a == $b) {
+                    return 0;
+                }
+                return ($a < $b) ? -1 : 1;
             }
         );
 
@@ -70,7 +73,7 @@ class CollectionValueObjectTest extends TestCase
         $collection = CollectionValueObject::from([1, 2, 3, 4]);
         $newCollection = $collection->filter(
             function ($current) {
-                return 2  !== $current;
+                return 2 !== $current;
             }
         );
 
