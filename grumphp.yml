@@ -1,0 +1,5 @@
+grumphp:
+    tasks:
+        composer:
+            strict: true
+        phpunit: ~

@@ -3,6 +3,7 @@ FROM php:8.0-cli-alpine3.13
 RUN apk update && \
     apk add --no-cache \
         libzip-dev \
+        git \
         openssl-dev && \
     docker-php-ext-install -j$(nproc) \
         zip
