@@ -7,9 +7,14 @@ abstract class FloatValueObject implements ValueObject
 {
     private float $value;
 
-    protected function __construct(float $value)
+    final private function __construct(float $value)
     {
         $this->value = $value;
+    }
+
+    public static function from(float $value): static
+    {
+        return new static($value);
     }
 
     public function value(): float
@@ -30,10 +35,5 @@ abstract class FloatValueObject implements ValueObject
     final public function jsonSerialize(): float
     {
         return $this->value;
-    }
-
-    public static function from(float $value)
-    {
-        return new static($value);
     }
 }

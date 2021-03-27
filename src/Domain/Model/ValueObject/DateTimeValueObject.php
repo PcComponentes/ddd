@@ -5,18 +5,19 @@ namespace PcComponentes\Ddd\Domain\Model\ValueObject;
 
 class DateTimeValueObject extends \DateTimeImmutable implements ValueObject
 {
-    public function __construct($time = 'now', $timezone = null)
+    final private function __construct($time, $timezone)
     {
-        if (null === $timezone) {
-            $timezone = new \DateTimeZone('UTC');
-        }
-
         parent::__construct($time, $timezone);
     }
 
-    final public static function from(string $str): self
+    final public static function from(string $str): static
     {
         return new static($str, new \DateTimeZone('UTC'));
+    }
+
+    final public static function now(): static
+    {
+        return static::from('now');
     }
 
     final public static function fromTimestamp(int $timestamp): self

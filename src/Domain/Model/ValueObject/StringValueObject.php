@@ -7,9 +7,14 @@ abstract class StringValueObject implements ValueObject
 {
     private string $value;
 
-    protected function __construct(string $value)
+    private final function __construct(string $value)
     {
         $this->value = $value;
+    }
+
+    public static function from(string $value): static
+    {
+        return new static($value);
     }
 
     public function value(): string
@@ -25,11 +30,6 @@ abstract class StringValueObject implements ValueObject
     final public function jsonSerialize(): string
     {
         return $this->value;
-    }
-
-    public static function from(string $value)
-    {
-        return new static($value);
     }
     
     public function __toString(): string

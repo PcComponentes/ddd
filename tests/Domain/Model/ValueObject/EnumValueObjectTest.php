@@ -64,67 +64,12 @@ class EnumValueObjectTest extends TestCase
     /**
      * @test
      */
-    public function given_valid_enum_value_when_exist_a_previous_different_implementation_then_uses_its_own_allowed_values_for_validation(
-    )
-    {
-        new class('FIRST_VALUE_1') extends EnumValueObject {
-            private const ENUM_1 = 'FIRST_VALUE_1';
-            private const ENUM_2 = 'FIRST_VALUE_2';
-
-            public function __construct($value)
-            {
-                parent::__construct($value);
-            }
-        };
-
-        $this->expectException(\InvalidArgumentException::class);
-        new class('FIRST_VALUE_1') extends EnumValueObject {
-            private const ENUM_1 = 'SUBSEQUENT_VALUE_1';
-            private const ENUM_2 = 'SUBSEQUENT_VALUE_2';
-
-            public function __construct($value)
-            {
-                parent::__construct($value);
-            }
-        };
-
-        try {
-            $validValue = 'SUBSEQUENT_VALUE_1';
-            new class($validValue) extends EnumValueObject {
-                private const ENUM_1 = 'SUBSEQUENT_VALUE_1';
-                private const ENUM_2 = 'SUBSEQUENT_VALUE_2';
-
-                public function __construct($value)
-                {
-                    parent::__construct($value);
-                }
-            };
-        } catch (\InvalidArgumentException $e) {
-            self::fail(sprintf(
-                'Failed asserting valid %s argument not in allowed values [%s]',
-                $validValue,
-                'SUBSEQUENT_VALUE_1, SUBSEQUENT_VALUE_2'
-            ));
-        }
-    }
-
-    /**
-     * @test
-     */
     public function given_invalid_enum_value_when_throws_exception_then_message_has_enum_subclass_name()
     {
         try {
-            new class('FIRST_VALUE_1') extends EnumValueObject {
-                private const ENUM_1 = 'SUBSEQUENT_VALUE_1';
-                private const ENUM_2 = 'SUBSEQUENT_VALUE_2';
-
-                public function __construct($value)
-                {
-                    parent::__construct($value);
-                }
-            };
+            EnumValueObjectTested::from('3');
         } catch (\InvalidArgumentException $e) {
-            self::assertStringMatchesFormat('%s' . EnumValueObject::class . '@anonymous%s', $e->getMessage());
+            self::assertStringMatchesFormat('%s' . EnumValueObjectTested::class . '%s', $e->getMessage());
         }
     }
 }
