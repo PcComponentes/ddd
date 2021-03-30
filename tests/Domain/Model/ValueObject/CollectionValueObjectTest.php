@@ -49,7 +49,7 @@ class CollectionValueObjectTest extends TestCase
     /**
      * @test
      */
-    public function given_collection_when_ask_to_sort_then_return_new_sorted_collection()
+    public function given_integerish_collection_when_ask_to_sort_then_return_new_sorted_collection()
     {
         $collection = CollectionValueObject::from([5, 1, 4, 2, 3]);
         $sorted = $collection->sort(
@@ -60,6 +60,25 @@ class CollectionValueObjectTest extends TestCase
 
         $this->assertEquals([5, 1, 4, 2, 3], $collection->jsonSerialize());
         $this->assertEquals([1, 2, 3, 4, 5], $sorted->jsonSerialize());
+    }
+
+    /**
+     * @test
+     */
+    public function given_collection_when_ask_to_sort_then_return_new_sorted_collection()
+    {
+        $collection = CollectionValueObject::from(['5a', '1', '4', '2', '3']);
+        $sorted = $collection->sort(
+            function ($a, $b) {
+                if ($a == $b) {
+                    return 0;
+                }
+                return ($a < $b) ? -1 : 1;
+            }
+        );
+
+        $this->assertEquals(['5a', '1', '4', '2', '3'], $collection->jsonSerialize());
+        $this->assertEquals(['1', '2', '3', '4', '5a'], $sorted->jsonSerialize());
     }
 
     /**
