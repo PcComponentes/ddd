@@ -20,7 +20,7 @@ class DateTimeValueObject extends \DateTimeImmutable implements ValueObject
         return static::from('now');
     }
 
-    final public static function fromTimestamp(int $timestamp): self
+    final public static function fromTimestamp(int $timestamp): static
     {
         $dateTime = \DateTimeImmutable::createFromFormat('U', (string) $timestamp);
 

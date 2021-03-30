@@ -7,7 +7,7 @@ abstract class StringValueObject implements ValueObject
 {
     private string $value;
 
-    private final function __construct(string $value)
+    final private function __construct(string $value)
     {
         $this->value = $value;
     }
@@ -31,7 +31,7 @@ abstract class StringValueObject implements ValueObject
     {
         return $this->value;
     }
-    
+
     public function __toString(): string
     {
         return $this->value;
