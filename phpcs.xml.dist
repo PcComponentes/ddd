@@ -3,5 +3,6 @@
     <file>src</file>
     <rule ref="vendor/pccomponentes/coding-standard/src/ruleset.xml">
         <exclude name="SlevomatCodingStandard.PHP.DisallowReference.DisallowedPassingByReference" />
+        <exclude name="SlevomatCodingStandard.Operators.DisallowEqualOperators.DisallowedEqualOperator" />
     </rule>
 </ruleset>

@@ -12,8 +12,6 @@ abstract class AggregateMessage extends Message
     private DateTimeValueObject $occurredOn;
     private int $aggregateVersion;
 
-    abstract protected function assertPayload(): void;
-
     final protected function __construct(
         Uuid $messageId,
         Uuid $aggregateId,
@@ -72,4 +70,6 @@ abstract class AggregateMessage extends Message
     {
         $visitor->visitAggregateMessage($this);
     }
+
+    abstract protected function assertPayload(): void;
 }

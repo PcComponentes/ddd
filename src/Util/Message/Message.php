@@ -10,6 +10,13 @@ abstract class Message implements \JsonSerializable
     private Uuid $messageId;
     private array $payload;
 
+    protected function __construct(Uuid $messageId, array $payload)
+    {
+        $this->assertPrimitivePayload($payload);
+        $this->messageId = $messageId;
+        $this->payload = $payload;
+    }
+
     abstract public static function messageName(): string;
 
     abstract public static function messageVersion(): string;
@@ -17,13 +24,6 @@ abstract class Message implements \JsonSerializable
     abstract public static function messageType(): string;
 
     abstract public function accept(MessageVisitor $visitor): void;
-
-    protected function __construct(Uuid $messageId, array $payload)
-    {
-        $this->assertPrimitivePayload($payload);
-        $this->messageId = $messageId;
-        $this->payload = $payload;
-    }
 
     public function messageId(): Uuid
     {

@@ -6,4 +6,10 @@ grumphp:
             autoload_file: phpstan.neon
             configuration: ~
             level: 2
+        phpcs:
+            standard:
+                - 'phpcs.xml.dist'
+            whitelist_patterns:
+                - '/^src\/(.*)/'
+            encoding: 'UTF-8'
         phpunit: ~

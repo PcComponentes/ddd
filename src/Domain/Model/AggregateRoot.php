@@ -11,8 +11,6 @@ abstract class AggregateRoot implements \JsonSerializable
     private array $events;
     private int $aggregateVersion;
 
-    abstract public static function modelName(): string;
-
     final protected function __construct(Uuid $aggregateId, int $aggregateVersion = 0)
     {
         $this->aggregateId = $aggregateId;
@@ -32,6 +30,8 @@ abstract class AggregateRoot implements \JsonSerializable
 
         return $self;
     }
+
+    abstract public static function modelName(): string;
 
     final public function aggregateId(): Uuid
     {
