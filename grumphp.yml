@@ -2,4 +2,10 @@ grumphp:
     tasks:
         composer:
             strict: true
+        phpcs:
+            standard:
+                - 'phpcs.xml.dist'
+            whitelist_patterns:
+                - '/^src\/(.*)/'
+            encoding: 'UTF-8'
         phpunit: ~

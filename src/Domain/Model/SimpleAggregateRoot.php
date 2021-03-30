@@ -1,4 +1,5 @@
-<?php declare(strict_types=1);
+<?php
+declare(strict_types=1);
 
 namespace PcComponentes\Ddd\Domain\Model;
 
@@ -10,13 +11,13 @@ abstract class SimpleAggregateRoot
     private Uuid $aggregateId;
     private array $events;
 
-    abstract public static function modelName(): string;
-
     final protected function __construct(Uuid $aggregateId)
     {
         $this->aggregateId = $aggregateId;
         $this->events = [];
     }
+
+    abstract public static function modelName(): string;
 
     final public function aggregateId(): Uuid
     {
