@@ -124,7 +124,7 @@ class EnumValueObjectTest extends TestCase
                 }
             };
         } catch (\InvalidArgumentException $e) {
-            self::assertStringMatchesFormat('%s' . EnumValueObject::class . '@anonymous%s', $e->getMessage());
+            self::assertStringMatchesFormat('%s@anonymous%s', $e->getMessage());
         }
     }
 }
