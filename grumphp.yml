@@ -2,6 +2,10 @@ grumphp:
     tasks:
         composer:
             strict: true
+        phpstan:
+            autoload_file: phpstan.neon
+            configuration: ~
+            level: 2
         jsonlint: ~
         phpcpd:
             exclude:

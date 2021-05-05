@@ -7,9 +7,14 @@ abstract class IntValueObject implements ValueObject
 {
     private int $value;
 
-    protected function __construct(int $value)
+    final private function __construct(int $value)
     {
         $this->value = $value;
+    }
+
+    public static function from(int $value): static
+    {
+        return new static($value);
     }
 
     public function value(): int
@@ -30,10 +35,5 @@ abstract class IntValueObject implements ValueObject
     final public function jsonSerialize(): int
     {
         return $this->value;
-    }
-
-    public static function from(int $value)
-    {
-        return new static($value);
     }
 }

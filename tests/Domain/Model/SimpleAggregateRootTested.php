@@ -16,7 +16,7 @@ final class SimpleAggregateRootTested extends SimpleAggregateRoot
             DomainEventTested::fromPayload(
                 Uuid::v4(),
                 $aggregateId,
-                new DateTimeValueObject(),
+                DateTimeValueObject::now(),
                 []
             )
         );

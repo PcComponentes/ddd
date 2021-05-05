@@ -7,11 +7,11 @@ abstract class EnumValueObject extends StringValueObject
 {
     private static array $allowedValues;
 
-    protected function __construct($value)
+    public static function from(string $value): static
     {
-        $this->guard($value);
+        self::guard($value);
 
-        parent::__construct($value);
+        return parent::from($value);
     }
 
     final public static function allowedValues(): array
@@ -24,9 +24,9 @@ abstract class EnumValueObject extends StringValueObject
         return self::$allowedValues[static::class];
     }
 
-    private function guard($value): void
+    private static function guard($value): void
     {
-        if (false === $this->isValid($value)) {
+        if (false === self::isValid($value)) {
             throw new \InvalidArgumentException(
                 \sprintf(
                     '<%s> not allowed value, allowed values: <%s> for enum class <%s>',
@@ -38,7 +38,7 @@ abstract class EnumValueObject extends StringValueObject
         }
     }
 
-    private function isValid($value): bool
+    private static function isValid($value): bool
     {
         return \in_array($value, static::allowedValues(), true);
     }
