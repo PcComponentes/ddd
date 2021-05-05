@@ -1,0 +1,6 @@
+#!/bin/sh
+
+SCRIPT=$(docker-compose run --no-deps --rm php sh -c "grumphp git:pre-commit" 2>&1)
+STATUS=$?
+echo "$SCRIPT"
+exit $STATUS

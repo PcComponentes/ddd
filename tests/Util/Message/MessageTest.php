@@ -47,10 +47,11 @@ class MessageTest extends TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
+     *
      */
     public function given_non_primitive_payload_when_ask_to_create_message_then_throw_exception()
     {
+        $this->expectException(\InvalidArgumentException::class);
         MessageTested::set('example', 'v1', 'tested');
         $messageId = Uuid::from('212e0a16-ae32-4c80-a6e4-26577f4cf7c7');
         $payload = [

@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace PcComponentes\Ddd\Tests\Domain\Model\ValueObject;
 
 use PcComponentes\Ddd\Domain\Model\ValueObject\Uuid;
@@ -26,7 +27,7 @@ class UuidTest extends TestCase
     {
         $uuid = Uuid::v4();
         $this->assertInstanceOf(Uuid::class, $uuid);
-        $this->assertRegExp('/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i', $uuid->value());
+        $this->assertMatchesRegularExpression('/^[0-9A-F]{8}-[0-9A-F]{4}-4[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i', $uuid->value());
     }
 
     /**
@@ -53,10 +54,10 @@ class UuidTest extends TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function given_invalid_uuid_when_ask_to_get_info_then_throw_exception()
     {
+        $this->expectException(\InvalidArgumentException::class);
         Uuid::from('non-uuid');
     }
 }

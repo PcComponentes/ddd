@@ -18,10 +18,10 @@ class AssocAccessorTest extends TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function given_array_when_ask_to_take_an_unavailable_index_value_or_exception_then_throw_exception()
     {
+        $this->expectException(\InvalidArgumentException::class);
         AssocAccessor::get(['test' => 1234], 'other');
     }
 
@@ -41,7 +41,6 @@ class AssocAccessorTest extends TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function given_array_when_ask_to_take_an_unavailable_advanced_index_value_or_exception_then_return_it()
     {
@@ -50,6 +49,8 @@ class AssocAccessorTest extends TestCase
                 'other' => [9, 8, 7]
             ]
         ];
+
+        $this->expectException(\InvalidArgumentException::class);
 
         AssocAccessor::get($data, 'test.other.3');
     }

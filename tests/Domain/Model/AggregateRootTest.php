@@ -33,7 +33,6 @@ class AggregateRootTest extends TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
      */
     public function given_unexpected_id_when_ask_to_launch_event_then_return_expected_info()
     {
@@ -45,6 +44,9 @@ class AggregateRootTest extends TestCase
         $otherAggregateId = Uuid::v4();
         $occurredOn = DateTimeValueObject::from('2018-01-01 10:10:10');
         $event = DomainEventTested::test($messageId, $otherAggregateId, $aggregateVersion, $occurredOn, []);
+
+        $this->expectException(\InvalidArgumentException::class);
+
         $aggregateRoot->doAction($event);
     }
 

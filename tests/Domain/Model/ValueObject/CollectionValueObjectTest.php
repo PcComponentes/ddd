@@ -1,6 +1,6 @@
 <?php
-
 declare(strict_types=1);
+
 namespace PcComponentes\Ddd\Tests\Domain\Model\ValueObject;
 
 use PcComponentes\Ddd\Domain\Model\ValueObject\CollectionValueObject;
@@ -49,12 +49,12 @@ class CollectionValueObjectTest extends TestCase
     /**
      * @test
      */
-    public function given_collection_when_ask_to_sort_then_return_new_sorted_collection()
+    public function given_integerish_collection_when_ask_to_sort_then_return_new_sorted_collection()
     {
         $collection = CollectionValueObject::from([5, 1, 4, 2, 3]);
         $sorted = $collection->sort(
-            function ($a , $b){
-                return $a > $b;
+            function ($a, $b) {
+               return $a - $b;
             }
         );
 
@@ -65,12 +65,31 @@ class CollectionValueObjectTest extends TestCase
     /**
      * @test
      */
+    public function given_collection_when_ask_to_sort_then_return_new_sorted_collection()
+    {
+        $collection = CollectionValueObject::from(['5a', '1', '4', '2', '3']);
+        $sorted = $collection->sort(
+            function ($a, $b) {
+                if ($a == $b) {
+                    return 0;
+                }
+                return ($a < $b) ? -1 : 1;
+            }
+        );
+
+        $this->assertEquals(['5a', '1', '4', '2', '3'], $collection->jsonSerialize());
+        $this->assertEquals(['1', '2', '3', '4', '5a'], $sorted->jsonSerialize());
+    }
+
+    /**
+     * @test
+     */
     public function given_collection_when_ask_to_filter_then_return_expected_info()
     {
         $collection = CollectionValueObject::from([1, 2, 3, 4]);
         $newCollection = $collection->filter(
             function ($current) {
-                return 2  !== $current;
+                return 2 !== $current;
             }
         );
 

@@ -1,0 +1,18 @@
+grumphp:
+    tasks:
+        composer:
+            strict: true
+        jsonlint: ~
+        phpcpd:
+            exclude:
+                - 'var'
+                - 'vendor'
+            min_lines: 60
+        phpcs:
+            standard:
+                - 'phpcs.xml.dist'
+            whitelist_patterns:
+                - '/^src\/(.*)/'
+            encoding: 'UTF-8'
+        phplint: ~
+        phpunit: ~

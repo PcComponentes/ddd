@@ -1,6 +1,7 @@
 <?php
 
 declare(strict_types=1);
+
 namespace PcComponentes\Ddd\Tests\Domain\Model\ValueObject;
 
 use PcComponentes\Ddd\Domain\Model\ValueObject\EnumValueObject;
@@ -52,19 +53,21 @@ class EnumValueObjectTest extends TestCase
 
     /**
      * @test
-     * @expectedException \InvalidArgumentException
+     *
      */
     public function given_invalid_enum_value_when_create_enum_then_throw_exception()
     {
+        $this->expectException(\InvalidArgumentException::class);
         EnumValueObjectTested::from('3');
     }
 
     /**
      * @test
      */
-    public function given_valid_enum_value_when_exist_a_previous_different_implementation_then_uses_its_own_allowed_values_for_validation()
+    public function given_valid_enum_value_when_exist_a_previous_different_implementation_then_uses_its_own_allowed_values_for_validation(
+    )
     {
-        new class('FIRST_VALUE_1') extends EnumValueObject{
+        new class('FIRST_VALUE_1') extends EnumValueObject {
             private const ENUM_1 = 'FIRST_VALUE_1';
             private const ENUM_2 = 'FIRST_VALUE_2';
 
@@ -121,7 +124,7 @@ class EnumValueObjectTest extends TestCase
                 }
             };
         } catch (\InvalidArgumentException $e) {
-            self::assertStringMatchesFormat('%sclass@anonymous%s', $e->getMessage());
+            self::assertStringMatchesFormat('%s@anonymous%s', $e->getMessage());
         }
     }
 }
