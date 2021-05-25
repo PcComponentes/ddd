@@ -12,6 +12,17 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         $this->items = $items;
     }
 
+    public function first()
+    {
+        $keys = \array_keys($this->items);
+
+        if (0 === \count($keys)) {
+            return null;
+        }
+
+        return $this->items[$keys[0]];
+    }
+
     public function current()
     {
         return \current($this->items);

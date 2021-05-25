@@ -122,4 +122,22 @@ class CollectionValueObjectTest extends TestCase
         $this->assertEquals([1, 2, 3, 4], $collection->jsonSerialize());
         $this->assertEquals([1, 2, 4], $newCollection->jsonSerialize());
     }
+
+    /**
+     * @test
+     */
+    public function given_collection_when_ask_to_get_first_then_return_first_element()
+    {
+        $firstElement = 1;
+        $collection = CollectionValueObject::from(
+            [
+                5 => $firstElement,
+                10 => 2,
+                1 => 3,
+                2 => 4,
+            ]
+        );
+
+        $this->assertEquals($firstElement, $collection->first());
+    }
 }
