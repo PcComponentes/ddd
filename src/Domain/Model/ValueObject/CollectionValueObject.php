@@ -104,4 +104,9 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
             static fn ($current) => $current !== $item,
         );
     }
+
+    protected function first()
+    {
+        return $this->items[(string)array_key_first($this->items)] ?? null;
+    }
 }
