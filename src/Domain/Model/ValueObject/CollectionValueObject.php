@@ -107,6 +107,6 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
 
     public function first()
     {
-        return $this->items[(string)array_key_first($this->items)] ?? null;
+        return $this->items[array_key_first($this->items)] ?? null;
     }
 }
