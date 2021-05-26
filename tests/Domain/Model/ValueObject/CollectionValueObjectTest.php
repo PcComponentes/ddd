@@ -155,11 +155,12 @@ class CollectionValueObjectTest extends TestCase
      */
     public function given_a_hash_map_collection_when_ask_to_obtain_first_item_then_return_first_item()
     {
-        $collection = CollectionValueObjectTested::from(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]);
+        $firstItem = 1;
+        $collection = CollectionValueObjectTested::from(['a' => $firstItem, 'b' => 2, 'c' => 3, 'd' => 4]);
         $item = $collection->firstItem();
 
-        $this->assertEquals(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4], $collection->jsonSerialize());
-        $this->assertEquals(1, $item);
+        $this->assertEquals(['a' => $firstItem, 'b' => 2, 'c' => 3, 'd' => 4], $collection->jsonSerialize());
+        $this->assertEquals($firstItem, $item);
     }
 
     /**
@@ -167,11 +168,12 @@ class CollectionValueObjectTest extends TestCase
      */
     public function given_a_collection_when_ask_to_obtain_first_item_then_return_first_item()
     {
-        $collection = CollectionValueObjectTested::from([1, 2, 3, 4]);
+        $firstItem = 1;
+        $collection = CollectionValueObjectTested::from([$firstItem, 2, 3, 4]);
         $item = $collection->firstItem();
 
-        $this->assertEquals([1, 2, 3, 4], $collection->jsonSerialize());
-        $this->assertEquals(1, $item);
+        $this->assertEquals([$firstItem, 2, 3, 4], $collection->jsonSerialize());
+        $this->assertEquals($firstItem, $item);
         $this->assertNotEquals(2, $item);
         $this->assertNotEquals(3, $item);
         $this->assertNotEquals(4, $item);
