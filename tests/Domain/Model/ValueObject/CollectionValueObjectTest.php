@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PcComponentes\Ddd\Tests\Domain\Model\ValueObject;
 
 use PcComponentes\Ddd\Domain\Model\ValueObject\CollectionValueObject;
+use PcComponentes\Ddd\Domain\Model\ValueObject\Uuid;
 use PHPUnit\Framework\TestCase;
 
 class CollectionValueObjectTest extends TestCase
@@ -271,6 +272,39 @@ class CollectionValueObjectTest extends TestCase
     {
         $collection = CollectionValueObject::from(['a' => 1, 'b' => 3, 'c' => 3, 'd' => 4]);
         $other = CollectionValueObject::from(['b' => 1, 'a' => 2, 'd' => 3, 'c' => 4]);
+
+        $this->assertFalse($collection->haveSameValues($other));
+    }
+
+    /**
+     * @test
+     */
+    public function given_two_unordered_equals_object_collections_when_ask_to_have_same_values_then_return_false()
+    {
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
+        $uuid3 = Uuid::v4();
+        $uuid4 = Uuid::v4();
+
+        $collection = CollectionValueObject::from([$uuid1, $uuid2, $uuid3, $uuid4]);
+        $other = CollectionValueObject::from([$uuid1, $uuid3, $uuid4, $uuid2]);
+
+        $this->assertTrue($collection->haveSameValues($other));
+    }
+
+    /**
+     * @test
+     */
+    public function given_two_unordered_different_object_collections_when_ask_to_have_same_values_then_return_false()
+    {
+        $uuid1 = Uuid::v4();
+        $uuid2 = Uuid::v4();
+        $uuid3 = Uuid::v4();
+        $uuid4 = Uuid::v4();
+        $uuid5 = Uuid::v4();
+
+        $collection = CollectionValueObject::from([$uuid1, $uuid5, $uuid3, $uuid4]);
+        $other = CollectionValueObject::from([$uuid1, $uuid3, $uuid4, $uuid2]);
 
         $this->assertFalse($collection->haveSameValues($other));
     }

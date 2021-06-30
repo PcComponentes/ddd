@@ -146,7 +146,7 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
             }
         }
 
-        \reset($anotherCollection);
+        $anotherCollection->rewind();
 
         return true;
     }
