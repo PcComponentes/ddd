@@ -201,77 +201,77 @@ class CollectionValueObjectTest extends TestCase
     /**
      * @test
      */
-    public function given_two_different_collections_when_ask_to_are_equals_then_return_false()
+    public function given_two_different_collections_when_ask_to_have_same_values_then_return_false()
     {
         $collection = CollectionValueObject::from([1, 2, 3, 4]);
         $other = CollectionValueObject::from([5, 6, 7, 8]);
 
-        $this->assertFalse($collection->areEqualsValues($other));
+        $this->assertFalse($collection->haveSameValues($other));
     }
 
     /**
      * @test
      */
-    public function given_two_different_collections_when_one_contains_the_other_and_ask_to_are_equals_then_return_false()
+    public function given_two_different_collections_when_one_contains_the_other_and_ask_to_have_same_values_then_return_false()
     {
         $collection = CollectionValueObject::from([1, 2, 3, 4]);
         $other = CollectionValueObject::from([1, 2, 3, 4, 5]);
 
-        $this->assertFalse($collection->areEqualsValues($other));
+        $this->assertFalse($collection->haveSameValues($other));
     }
 
     /**
      * @test
      */
-    public function given_two_unordered_equals_collections_when_ask_to_are_equals_then_return_true()
+    public function given_two_unordered_equals_collections_when_ask_to_have_same_values_then_return_true()
     {
         $collection = CollectionValueObject::from([1, 1, 3, 4]);
         $other = CollectionValueObject::from([4, 1, 3, 1]);
 
-        $this->assertTrue($collection->areEqualsValues($other));
+        $this->assertTrue($collection->haveSameValues($other));
     }
 
     /**
      * @test
      */
-    public function given_two_ordered_equals_collections_when_ask_to_are_equals_then_return_true()
+    public function given_two_ordered_equals_collections_when_ask_to_have_same_values_then_return_true()
     {
         $collection = CollectionValueObject::from([1, 2, 3, 4]);
         $other = CollectionValueObject::from([1, 2, 3, 4]);
 
-        $this->assertTrue($collection->areEqualsValues($other));
+        $this->assertTrue($collection->haveSameValues($other));
     }
 
     /**
      * @test
      */
-    public function given_two_ordered_equals_hashed_collections_when_ask_to_are_equals_then_return_true()
+    public function given_two_ordered_equals_hashed_collections_when_ask_to_have_same_values_then_return_true()
     {
         $collection = CollectionValueObject::from(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]);
         $other = CollectionValueObject::from(['b' => 1, 'a' => 2, 'd' => 3, 'c' => 4]);
 
-        $this->assertTrue($collection->areEqualsValues($other));
+        $this->assertTrue($collection->haveSameValues($other));
     }
 
     /**
      * @test
      */
-    public function given_two_unordered_equals_hashed_collections_when_ask_to_are_equals_then_return_true()
+    public function given_two_unordered_equals_hashed_collections_when_ask_to_have_same_values_then_return_true()
     {
         $collection = CollectionValueObject::from(['a' => 2, 'b' => 1, 'c' => 3, 'd' => 4]);
         $other = CollectionValueObject::from(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]);
 
-        $this->assertTrue($collection->areEqualsValues($other));
+        $this->assertTrue($collection->haveSameValues($other));
     }
 
     /**
      * @test
      */
-    public function given_two_unordered_different_hashed_collections_when_ask_to_are_equals_then_return_false()
+    public function given_two_unordered_different_hashed_collections_when_ask_to_have_same_values_then_return_false()
     {
         $collection = CollectionValueObject::from(['a' => 1, 'b' => 3, 'c' => 3, 'd' => 4]);
         $other = CollectionValueObject::from(['b' => 1, 'a' => 2, 'd' => 3, 'c' => 4]);
 
-        $this->assertFalse($collection->areEqualsValues($other));
+        $this->assertFalse($collection->haveSameValues($other));
     }
 }

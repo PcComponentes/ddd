@@ -110,7 +110,7 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         return $this->items[array_key_first($this->items)] ?? null;
     }
 
-    public function areEqualsValues(CollectionValueObject $anotherCollection): bool
+    public function haveSameValues(CollectionValueObject $anotherCollection): bool
     {
         $length = $this->count();
 
@@ -132,8 +132,8 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         foreach ($this->items as $item) {
 
             $pointer = 0;
-            foreach ($anotherCollection as $key => $otherCollectionItem) {
-                if (false === $visitedItems[$pointer] && $item == $otherCollectionItem) {
+            foreach ($anotherCollection as $anotherCollectionItem) {
+                if (false === $visitedItems[$pointer] && $item == $anotherCollectionItem) {
                     $visitedItems[$pointer] = true;
                     break;
                 }
