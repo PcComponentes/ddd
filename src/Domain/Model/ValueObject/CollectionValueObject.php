@@ -112,9 +112,7 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
 
     public function haveSameValues(CollectionValueObject $anotherCollection): bool
     {
-        $length = $this->count();
-
-        if ($length !== \count($anotherCollection)) {
+        if ($this->count() !== \count($anotherCollection)) {
             return false;
         }
 
@@ -122,32 +120,12 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
             return false;
         }
 
-        $visitedItems = [];
+        $arr1 = $this->items;
+        $arr2 = $anotherCollection->items;
 
-        for ($i = 0; $i < $length; $i++)
-        {
-            $visitedItems[$i] = false;
-        }
+        sort($arr1);
+        sort($arr2);
 
-        foreach ($this->items as $item) {
-
-            $pointer = 0;
-            foreach ($anotherCollection as $anotherCollectionItem) {
-                if (false === $visitedItems[$pointer] && $item == $anotherCollectionItem) {
-                    $visitedItems[$pointer] = true;
-                    break;
-                }
-
-                if ($pointer === $length -1) {
-                    return false;
-                }
-
-                $pointer++;
-            }
-        }
-
-        $anotherCollection->rewind();
-
-        return true;
+        return $arr1 == $arr2;
     }
 }
