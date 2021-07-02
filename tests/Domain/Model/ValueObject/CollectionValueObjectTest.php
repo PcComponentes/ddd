@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PcComponentes\Ddd\Tests\Domain\Model\ValueObject;
 
 use PcComponentes\Ddd\Domain\Model\ValueObject\CollectionValueObject;
+use PcComponentes\Ddd\Domain\Model\ValueObject\Uuid;
 use PHPUnit\Framework\TestCase;
 
 class CollectionValueObjectTest extends TestCase
@@ -196,5 +197,125 @@ class CollectionValueObjectTest extends TestCase
         $this->assertNotEquals(2, $item);
         $this->assertNotEquals(3, $item);
         $this->assertNotEquals(4, $item);
+    }
+
+    /**
+     * @test
+     */
+    public function given_two_different_collections_when_ask_to_have_same_values_then_return_false()
+    {
+        $collection = CollectionValueObject::from([1, 2, 3, 4]);
+        $other = CollectionValueObject::from([5, 6, 7, 8]);
+
+        $this->assertFalse($collection->haveSameValues($other));
+    }
+
+    /**
+     * @test
+     */
+    public function given_two_different_collections_when_one_contains_the_other_and_ask_to_have_same_values_then_return_false()
+    {
+        $collection = CollectionValueObject::from([1, 2, 3, 4]);
+        $other = CollectionValueObject::from([1, 2, 3, 4, 5]);
+
+        $this->assertFalse($collection->haveSameValues($other));
+    }
+
+    /**
+     * @test
+     */
+    public function given_two_unordered_equals_collections_when_ask_to_have_same_values_then_return_true()
+    {
+        $collection = CollectionValueObject::from([1, 1, 3, 4]);
+        $other = CollectionValueObject::from([4, 1, 3, 1]);
+
+        $this->assertTrue($collection->haveSameValues($other));
+    }
+
+    /**
+     * @test
+     */
+    public function given_two_ordered_equals_collections_when_ask_to_have_same_values_then_return_true()
+    {
+        $collection = CollectionValueObject::from([1, 2, 3, 4]);
+        $other = CollectionValueObject::from([1, 2, 3, 4]);
+
+        $this->assertTrue($collection->haveSameValues($other));
+    }
+
+    /**
+     * @test
+     */
+    public function given_two_ordered_equals_hashed_collections_when_ask_to_have_same_values_then_return_true()
+    {
+        $collection = CollectionValueObject::from(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]);
+        $other = CollectionValueObject::from(['b' => 1, 'a' => 2, 'd' => 3, 'c' => 4]);
+
+        $this->assertTrue($collection->haveSameValues($other));
+    }
+
+    /**
+     * @test
+     */
+    public function given_two_unordered_equals_hashed_collections_when_ask_to_have_same_values_then_return_true()
+    {
+        $collection = CollectionValueObject::from(['a' => 2, 'b' => 1, 'c' => 3, 'd' => 4]);
+        $other = CollectionValueObject::from(['a' => 1, 'b' => 2, 'c' => 3, 'd' => 4]);
+
+        $this->assertTrue($collection->haveSameValues($other));
+    }
+
+    /**
+     * @test
+     */
+    public function given_two_unordered_different_hashed_collections_when_ask_to_have_same_values_then_return_false()
+    {
+        $collection = CollectionValueObject::from(['a' => 1, 'b' => 3, 'c' => 3, 'd' => 4]);
+        $other = CollectionValueObject::from(['b' => 1, 'a' => 2, 'd' => 3, 'c' => 4]);
+
+        $this->assertFalse($collection->haveSameValues($other));
+    }
+
+    /**
+     * @test
+     */
+    public function given_two_unordered_equals_object_collections_when_ask_to_have_same_values_then_return_false()
+    {
+        $uuid1 = new \stdClass();
+        $uuid2 = new \stdClass();
+        $uuid3 = new \stdClass();
+        $uuid4 = new \stdClass();
+        $uuid1->id = Uuid::v4();
+        $uuid2->id = Uuid::v4();
+        $uuid3->id = Uuid::v4();
+        $uuid4->id = Uuid::v4();
+
+
+        $collection = CollectionValueObject::from([$uuid1, $uuid2, $uuid3, $uuid4]);
+        $other = CollectionValueObject::from([$uuid1, $uuid3, $uuid4, $uuid2]);
+
+        $this->assertTrue($collection->haveSameValues($other));
+    }
+
+    /**
+     * @test
+     */
+    public function given_two_unordered_different_object_collections_when_ask_to_have_same_values_then_return_false()
+    {
+        $uuid1 = new \stdClass();
+        $uuid2 = new \stdClass();
+        $uuid3 = new \stdClass();
+        $uuid4 = new \stdClass();
+        $uuid5 = new \stdClass();
+        $uuid1->id = Uuid::v4();
+        $uuid2->id = Uuid::v4();
+        $uuid3->id = Uuid::v4();
+        $uuid4->id = Uuid::v4();
+        $uuid5->id = Uuid::v4();
+
+        $collection = CollectionValueObject::from([$uuid1, $uuid5, $uuid3, $uuid4]);
+        $other = CollectionValueObject::from([$uuid1, $uuid3, $uuid4, $uuid2]);
+
+        $this->assertFalse($collection->haveSameValues($other));
     }
 }

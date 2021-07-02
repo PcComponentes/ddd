@@ -109,4 +109,44 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
     {
         return $this->items[array_key_first($this->items)] ?? null;
     }
+
+    public function haveSameValues(CollectionValueObject $anotherCollection): bool
+    {
+        if ($this->count() !== \count($anotherCollection)) {
+            return false;
+        }
+
+        if (static::class !== \get_class($anotherCollection)) {
+            return false;
+        }
+
+        $indexedValuesCounter = [];
+
+        foreach ($this->items as $item) {
+            $encodedItem = \json_encode($item);
+
+            if (\array_key_exists($encodedItem, $indexedValuesCounter)) {
+                $indexedValuesCounter[$encodedItem]++;
+                continue;
+            }
+
+            $indexedValuesCounter[$encodedItem] = 1;
+        }
+
+        foreach ($anotherCollection as $anotherCollectionItem) {
+            $encodedItem = \json_encode($anotherCollectionItem);
+
+            if (false === \array_key_exists($encodedItem, $indexedValuesCounter)) {
+                continue;
+            }
+
+            $indexedValuesCounter[$encodedItem]--;
+
+            if (0 === $indexedValuesCounter[$encodedItem]) {
+                unset($indexedValuesCounter[$encodedItem]);
+            }
+        }
+
+        return 0 === \count($indexedValuesCounter);
+    }
 }
