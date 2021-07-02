@@ -124,16 +124,19 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
 
         foreach ($this->items as $item) {
             $encodedItem = \json_encode($item);
-            if (array_key_exists($encodedItem, $indexedValuesCounter)) {
+
+            if (\array_key_exists($encodedItem, $indexedValuesCounter)) {
                 $indexedValuesCounter[$encodedItem]++;
                 continue;
             }
+
             $indexedValuesCounter[$encodedItem] = 1;
         }
 
         foreach ($anotherCollection as $anotherCollectionItem) {
             $encodedItem = \json_encode($anotherCollectionItem);
-            if (false === array_key_exists($encodedItem, $indexedValuesCounter)) {
+
+            if (false === \array_key_exists($encodedItem, $indexedValuesCounter)) {
                 continue;
             }
 
