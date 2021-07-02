@@ -120,12 +120,30 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
             return false;
         }
 
-        $arr1 = $this->items;
-        $arr2 = $anotherCollection->items;
+        $indexedValuesCounter = [];
 
-        sort($arr1);
-        sort($arr2);
+        foreach ($this->items as $item) {
+            $encodedItem = \json_encode($item);
+            if (array_key_exists($encodedItem, $indexedValuesCounter)) {
+                $indexedValuesCounter[$encodedItem]++;
+                continue;
+            }
+            $indexedValuesCounter[$encodedItem] = 1;
+        }
 
-        return $arr1 == $arr2;
+        foreach ($anotherCollection as $anotherCollectionItem) {
+            $encodedItem = \json_encode($anotherCollectionItem);
+            if (false === array_key_exists($encodedItem, $indexedValuesCounter)) {
+                continue;
+            }
+
+            $indexedValuesCounter[$encodedItem]--;
+
+            if (0 === $indexedValuesCounter[$encodedItem]) {
+                unset($indexedValuesCounter[$encodedItem]);
+            }
+        }
+
+        return 0 === \count($indexedValuesCounter);
     }
 }

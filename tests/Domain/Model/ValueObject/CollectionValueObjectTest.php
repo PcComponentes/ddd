@@ -281,10 +281,15 @@ class CollectionValueObjectTest extends TestCase
      */
     public function given_two_unordered_equals_object_collections_when_ask_to_have_same_values_then_return_false()
     {
-        $uuid1 = Uuid::v4();
-        $uuid2 = Uuid::v4();
-        $uuid3 = Uuid::v4();
-        $uuid4 = Uuid::v4();
+        $uuid1 = new \stdClass();
+        $uuid2 = new \stdClass();
+        $uuid3 = new \stdClass();
+        $uuid4 = new \stdClass();
+        $uuid1->id = Uuid::v4();
+        $uuid2->id = Uuid::v4();
+        $uuid3->id = Uuid::v4();
+        $uuid4->id = Uuid::v4();
+
 
         $collection = CollectionValueObject::from([$uuid1, $uuid2, $uuid3, $uuid4]);
         $other = CollectionValueObject::from([$uuid1, $uuid3, $uuid4, $uuid2]);
@@ -297,11 +302,16 @@ class CollectionValueObjectTest extends TestCase
      */
     public function given_two_unordered_different_object_collections_when_ask_to_have_same_values_then_return_false()
     {
-        $uuid1 = Uuid::v4();
-        $uuid2 = Uuid::v4();
-        $uuid3 = Uuid::v4();
-        $uuid4 = Uuid::v4();
-        $uuid5 = Uuid::v4();
+        $uuid1 = new \stdClass();
+        $uuid2 = new \stdClass();
+        $uuid3 = new \stdClass();
+        $uuid4 = new \stdClass();
+        $uuid5 = new \stdClass();
+        $uuid1->id = Uuid::v4();
+        $uuid2->id = Uuid::v4();
+        $uuid3->id = Uuid::v4();
+        $uuid4->id = Uuid::v4();
+        $uuid5->id = Uuid::v4();
 
         $collection = CollectionValueObject::from([$uuid1, $uuid5, $uuid3, $uuid4]);
         $other = CollectionValueObject::from([$uuid1, $uuid3, $uuid4, $uuid2]);
