@@ -90,21 +90,6 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         return new static($items);
     }
 
-    protected function addItem($item): self
-    {
-        $items = $this->items;
-        $items[] = $item;
-
-        return new static($items);
-    }
-
-    protected function removeItem($item): self
-    {
-        return $this->filter(
-            static fn ($current) => $current !== $item,
-        );
-    }
-
     public function first()
     {
         return $this->items[array_key_first($this->items)] ?? null;
@@ -127,6 +112,7 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
 
             if (\array_key_exists($encodedItem, $indexedValuesCounter)) {
                 $indexedValuesCounter[$encodedItem]++;
+
                 continue;
             }
 
@@ -137,16 +123,33 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
             $encodedItem = \json_encode($anotherCollectionItem);
 
             if (false === \array_key_exists($encodedItem, $indexedValuesCounter)) {
-                continue;
+                return false;
             }
 
             $indexedValuesCounter[$encodedItem]--;
 
-            if (0 === $indexedValuesCounter[$encodedItem]) {
-                unset($indexedValuesCounter[$encodedItem]);
+            if (0 !== $indexedValuesCounter[$encodedItem]) {
+                continue;
             }
+
+            unset($indexedValuesCounter[$encodedItem]);
         }
 
         return 0 === \count($indexedValuesCounter);
+    }
+
+    protected function addItem($item): self
+    {
+        $items = $this->items;
+        $items[] = $item;
+
+        return new static($items);
+    }
+
+    protected function removeItem($item): self
+    {
+        return $this->filter(
+            static fn ($current) => $current !== $item,
+        );
     }
 }
