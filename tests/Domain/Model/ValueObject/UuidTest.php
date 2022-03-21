@@ -60,4 +60,20 @@ class UuidTest extends TestCase
         $this->expectException(\InvalidArgumentException::class);
         Uuid::from('non-uuid');
     }
+
+    /**
+     * @test
+     */
+    public function given_invalid_uuid_when_validating_then_return_false()
+    {
+        $this->assertFalse(Uuid::isValid('non-uuid'));
+    }
+
+    /**
+     * @test
+     */
+    public function given_invalid_uuid_when_validating_then_return_true()
+    {
+        $this->assertTrue(Uuid::isValid('7ff27995-c93f-4499-a1be-96daf90cf80c'));
+    }
 }
