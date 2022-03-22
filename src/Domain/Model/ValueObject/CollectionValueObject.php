@@ -90,6 +90,11 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         return new static($items);
     }
 
+    public function first()
+    {
+        return $this->items[array_key_first($this->items)] ?? null;
+    }
+
     protected function addItem($item): self
     {
         $items = $this->items;
@@ -103,10 +108,5 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         return $this->filter(
             static fn ($current) => $current !== $item,
         );
-    }
-
-    public function first()
-    {
-        return $this->items[array_key_first($this->items)] ?? null;
     }
 }
