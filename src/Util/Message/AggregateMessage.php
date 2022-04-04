@@ -49,7 +49,7 @@ abstract class AggregateMessage extends Message
         return $this->occurredOn;
     }
 
-    final public function jsonSerialize()
+    final public function jsonSerialize(): array
     {
         return \array_merge(
             parent::jsonSerialize(),
