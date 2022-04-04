@@ -35,7 +35,7 @@ abstract class Message implements \JsonSerializable
         return $this->payload;
     }
 
-    public function jsonSerialize()
+    public function jsonSerialize(): array
     {
         return [
             'message_id' => $this->messageId(),
