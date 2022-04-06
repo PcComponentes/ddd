@@ -12,7 +12,7 @@ abstract class SimpleMessage extends Message
         parent::__construct($messageId, $payload);
     }
 
-    final public static function fromPayload(Uuid $messageId, array $payload): self
+    final public static function fromPayload(Uuid $messageId, array $payload): static
     {
         $message = new static($messageId, $payload);
         $message->assertPayload();
