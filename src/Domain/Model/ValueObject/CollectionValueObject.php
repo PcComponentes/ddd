@@ -12,32 +12,32 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         $this->items = $items;
     }
 
-    public function current()
+    public function current(): mixed
     {
         return \current($this->items);
     }
 
-    public function next()
+    public function next(): void
     {
         \next($this->items);
     }
 
-    public function key()
+    public function key(): string|float|int|bool|null
     {
         return \key($this->items);
     }
 
-    public function valid()
+    public function valid(): bool
     {
         return \array_key_exists($this->key(), $this->items);
     }
 
-    public function rewind()
+    public function rewind(): void
     {
         \reset($this->items);
     }
 
-    public function count()
+    public function count(): int
     {
         return \count($this->items);
     }
