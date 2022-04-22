@@ -22,7 +22,7 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         \next($this->items);
     }
 
-    public function key(): string|float|int|bool|null
+    public function key(): string|int|null
     {
         return \key($this->items);
     }
