@@ -30,7 +30,7 @@
   "require": {
     "php": "^8.0",
     "ext-json": "*",
-    "ramsey/uuid": "^3.7"
+    "ramsey/uuid": "^4.2"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.0",

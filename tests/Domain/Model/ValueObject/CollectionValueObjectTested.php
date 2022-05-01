@@ -16,4 +16,9 @@ class CollectionValueObjectTested extends CollectionValueObject
     {
         return $this->removeItem($item);
     }
+
+    public function firstItem()
+    {
+        return $this->first();
+    }
 }

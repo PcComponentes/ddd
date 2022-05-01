@@ -157,4 +157,44 @@ class CollectionValueObjectTest extends TestCase
         $this->assertEquals([1, 2, 3, 4], $collection->jsonSerialize());
         $this->assertEquals([1, 2, 4], $newCollection->jsonSerialize());
     }
+
+    /**
+     * @test
+     */
+    public function given_an_empty_collection_when_ask_to_obtain_first_item_then_return_null()
+    {
+        $collection = CollectionValueObjectTested::from([]);
+        $item = $collection->firstItem();
+
+        $this->assertEquals(null, $item);
+    }
+
+    /**
+     * @test
+     */
+    public function given_a_hash_map_collection_when_ask_to_obtain_first_item_then_return_first_item()
+    {
+        $firstItem = 1;
+        $collection = CollectionValueObjectTested::from(['a' => $firstItem, 'b' => 2, 'c' => 3, 'd' => 4]);
+        $item = $collection->firstItem();
+
+        $this->assertEquals(['a' => $firstItem, 'b' => 2, 'c' => 3, 'd' => 4], $collection->jsonSerialize());
+        $this->assertEquals($firstItem, $item);
+    }
+
+    /**
+     * @test
+     */
+    public function given_a_collection_when_ask_to_obtain_first_item_then_return_first_item()
+    {
+        $firstItem = 1;
+        $collection = CollectionValueObjectTested::from([$firstItem, 2, 3, 4]);
+        $item = $collection->firstItem();
+
+        $this->assertEquals([$firstItem, 2, 3, 4], $collection->jsonSerialize());
+        $this->assertEquals($firstItem, $item);
+        $this->assertNotEquals(2, $item);
+        $this->assertNotEquals(3, $item);
+        $this->assertNotEquals(4, $item);
+    }
 }

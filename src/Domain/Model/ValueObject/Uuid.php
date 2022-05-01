@@ -16,4 +16,9 @@ class Uuid extends StringValueObject
     {
         return static::from(RamseyUuid::uuid4()->toString());
     }
+
+    public static function isValid(string $value): bool
+    {
+        return RamseyUuid::isValid($value);
+    }
 }
