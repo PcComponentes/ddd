@@ -8,19 +8,19 @@ class DateTimeRangeValeObject implements ValueObject
     private DateTimeValueObject $start;
     private DateTimeValueObject $end;
 
-    private function __construct(DateTimeValueObject $start, DateTimeValueObject $end)
+    final private function __construct(DateTimeValueObject $start, DateTimeValueObject $end)
     {
         $this->start = $start;
         $this->end = $end;
     }
 
-    public static function from(DateTimeValueObject $start, DateTimeValueObject $end)
+    public static function from(DateTimeValueObject $start, DateTimeValueObject $end): static
     {
         if ($start >= $end) {
             throw new \InvalidArgumentException('Start date can not be greater than the end date.');
         }
 
-        return new self($start, $end);
+        return new static($start, $end);
     }
 
     public function start(): DateTimeValueObject
@@ -35,19 +35,19 @@ class DateTimeRangeValeObject implements ValueObject
 
     public function isInDate(): bool
     {
-        $now = new DateTimeValueObject();
+        $now = DateTimeValueObject::now();
 
         return $now >= $this->start && $now <= $this->end;
     }
 
     public function isExpired(): bool
     {
-        return (new DateTimeValueObject()) > $this->end;
+        return DateTimeValueObject::now() > $this->end;
     }
 
     public function isNotStarted(): bool
     {
-        return (new DateTimeValueObject()) < $this->start;
+        return DateTimeValueObject::now() < $this->start;
     }
 
     public function equalTo(DateTimeRangeValeObject $another): bool

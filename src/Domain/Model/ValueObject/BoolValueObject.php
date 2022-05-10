@@ -7,9 +7,24 @@ abstract class BoolValueObject implements ValueObject
 {
     private bool $value;
 
-    protected function __construct(bool $value)
+    final private function __construct(bool $value)
     {
         $this->value = $value;
+    }
+
+    public static function from(bool $value): static
+    {
+        return new static($value);
+    }
+
+    public static function true(): static
+    {
+        return static::from(true);
+    }
+
+    public static function false(): static
+    {
+        return static::from(false);
     }
 
     public function value(): bool
@@ -30,20 +45,5 @@ abstract class BoolValueObject implements ValueObject
     final public function jsonSerialize(): bool
     {
         return $this->value;
-    }
-
-    public static function from(bool $value)
-    {
-        return new static($value);
-    }
-
-    public static function true()
-    {
-        return new static(true);
-    }
-
-    public static function false()
-    {
-        return new static(false);
     }
 }
