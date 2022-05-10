@@ -17,7 +17,7 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         return new static($items);
     }
 
-    public function current()
+    public function current(): mixed
     {
         return \current($this->items);
     }
@@ -27,7 +27,7 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         \next($this->items);
     }
 
-    public function key()
+    public function key(): string|int|null
     {
         return \key($this->items);
     }
