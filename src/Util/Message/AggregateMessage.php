@@ -51,7 +51,7 @@ abstract class AggregateMessage extends Message
             }
         } elseif (false === \is_a($aggregateId, AggregateId::class)) {
             throw new \InvalidArgumentException(\sprintf(
-                "AggregateId value should be %s instance, %s given",
+                "AggregateId value should be an instance of %s, %s given",
                 AggregateId::class,
                 \get_class($aggregateId),
             ));
