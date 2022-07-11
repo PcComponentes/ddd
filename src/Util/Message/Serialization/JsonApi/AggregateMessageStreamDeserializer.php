@@ -9,6 +9,7 @@ use PcComponentes\Ddd\Util\Message\AggregateMessage;
 use PcComponentes\Ddd\Util\Message\Serialization\AggregateMessageUnserializable;
 use PcComponentes\Ddd\Util\Message\Serialization\Exception\MessageClassNotFoundException;
 use PcComponentes\Ddd\Util\Message\Serialization\MessageMappingRegistry;
+use PcComponentes\Ddd\Util\Message\ValueObject\AggregateId;
 
 final class AggregateMessageStreamDeserializer implements AggregateMessageUnserializable
 {
@@ -33,7 +34,7 @@ final class AggregateMessageStreamDeserializer implements AggregateMessageUnseri
 
         return $eventClass::fromPayload(
             Uuid::from($message->messageId()),
-            Uuid::from($message->aggregateId()),
+            AggregateId::from($message->aggregateId()),
             DateTimeValueObject::fromTimestamp($message->occurredOn()),
             \json_decode($message->payload(), true, 512, \JSON_THROW_ON_ERROR),
             $message->aggregateVersion(),
