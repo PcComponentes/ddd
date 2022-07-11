@@ -43,7 +43,7 @@ abstract class AggregateMessage extends Message
                     'pccomponentes/ddd',
                     '3.0',
                     \sprintf(
-                        "AggregateId value should be %s instance, %s given",
+                        "AggregateId value should be an instance of %s, %s given",
                         AggregateId::class,
                         \get_class($aggregateId),
                     ),
