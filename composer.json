@@ -46,5 +46,11 @@
       "mkdir -p .git/hooks",
       "cp -r ./config/hooks/* .git/hooks"
     ]
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "phpro/grumphp": true
+    }
   }
 }
