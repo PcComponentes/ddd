@@ -8,6 +8,13 @@ use PcComponentes\Ddd\Util\Message\Serialization\AggregateMessageSerializable;
 
 final class AggregateMessageJsonApiSerializable implements AggregateMessageSerializable
 {
+    private string $occurredOnFormat;
+
+    public function __construct(string $occurredOnFormat = 'U')
+    {
+        $this->occurredOnFormat = $occurredOnFormat;
+    }
+
     public function serialize(AggregateMessage $message)
     {
         return \json_encode(
@@ -15,7 +22,7 @@ final class AggregateMessageJsonApiSerializable implements AggregateMessageSeria
                 'data' => [
                     'message_id' => $message->messageId(),
                     'type' => $message::messageName(),
-                    'occurred_on' => $message->occurredOn()->getTimestamp(),
+                    'occurred_on' => $this->mapDateTime($message->occurredOn()),
                     'attributes' => \array_merge(
                         ['aggregate_id' => $message->aggregateId()->value()],
                         $message->messagePayload(),
@@ -25,5 +32,16 @@ final class AggregateMessageJsonApiSerializable implements AggregateMessageSeria
             \JSON_THROW_ON_ERROR,
             512,
         );
+    }
+
+    private function mapDateTime(\DateTimeInterface $occurredOn): int|string
+    {
+        $occurredOnValue = $occurredOn->format($this->occurredOnFormat);
+
+        if ((string) (int) $occurredOnValue === $occurredOnValue) {
+            return (int) $occurredOn->format($this->occurredOnFormat);
+        }
+
+        return $occurredOn->format($this->occurredOnFormat);
     }
 }
