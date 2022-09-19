@@ -13,6 +13,12 @@ use PcComponentes\Ddd\Util\Message\ValueObject\AggregateId;
 
 final class AggregateMessageStreamDeserializer implements AggregateMessageUnserializable
 {
+    private const FORMAT_DECIMALS = [
+        'U' => 0,
+        'U.v' => 3,
+        'U.u' => 6,
+    ];
+
     private MessageMappingRegistry $registry;
     private string $occurredOnFormat;
 
@@ -38,7 +44,10 @@ final class AggregateMessageStreamDeserializer implements AggregateMessageUnseri
         return $eventClass::fromPayload(
             Uuid::from($message->messageId()),
             AggregateId::from($message->aggregateId()),
-            DateTimeValueObject::fromFormat($this->occurredOnFormat, $message->occurredOn()),
+            DateTimeValueObject::fromFormat(
+                $this->occurredOnFormat,
+                \number_format($message->occurredOn(), self::FORMAT_DECIMALS[$this->occurredOnFormat], '.', ''),
+            ),
             \json_decode($message->payload(), true, 512, \JSON_THROW_ON_ERROR),
             $message->aggregateVersion(),
         );

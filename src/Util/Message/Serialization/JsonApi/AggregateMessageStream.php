@@ -7,7 +7,7 @@ final class AggregateMessageStream
 {
     private string $messageId;
     private string $aggregateId;
-    private string $occurredOn;
+    private float $occurredOn;
     private string $messageName;
     private string $payload;
     private int $aggregateVersion;
@@ -15,7 +15,7 @@ final class AggregateMessageStream
     public function __construct(
         string $messageId,
         string $aggregateId,
-        string $occurredOn,
+        float $occurredOn,
         string $messageName,
         int $aggregateVersion,
         string $payload
@@ -38,7 +38,7 @@ final class AggregateMessageStream
         return $this->aggregateId;
     }
 
-    public function occurredOn(): string
+    public function occurredOn(): float
     {
         return $this->occurredOn;
     }
