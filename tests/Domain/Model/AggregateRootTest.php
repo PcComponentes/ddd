@@ -5,6 +5,7 @@ namespace PcComponentes\Ddd\Tests\Domain\Model;
 
 use PcComponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
 use PcComponentes\Ddd\Domain\Model\ValueObject\Uuid;
+use PcComponentes\Ddd\Util\Message\ValueObject\AggregateId;
 use PHPUnit\Framework\TestCase;
 
 class AggregateRootTest extends TestCase
@@ -20,7 +21,13 @@ class AggregateRootTest extends TestCase
 
         $messageId = Uuid::v4();
         $occurredOn =DateTimeValueObject::from('2018-01-01 10:10:10');
-        $event = DomainEventTested::test($messageId, $aggregateId, $aggregateVersion, $occurredOn, []);
+        $event = DomainEventTested::test(
+            $messageId,
+            AggregateId::from($aggregateId->value()),
+            $aggregateVersion,
+            $occurredOn,
+            [],
+        );
 
         $aggregateRoot->doAction($event);
 
@@ -43,7 +50,13 @@ class AggregateRootTest extends TestCase
         $messageId = Uuid::v4();
         $otherAggregateId = Uuid::v4();
         $occurredOn = DateTimeValueObject::from('2018-01-01 10:10:10');
-        $event = DomainEventTested::test($messageId, $otherAggregateId, $aggregateVersion, $occurredOn, []);
+        $event = DomainEventTested::test(
+            $messageId,
+            AggregateId::from($otherAggregateId->value()),
+            $aggregateVersion,
+            $occurredOn,
+            [],
+        );
 
         $this->expectException(\InvalidArgumentException::class);
 
@@ -60,7 +73,13 @@ class AggregateRootTest extends TestCase
 
         $messageId = Uuid::v4();
         $occurredOn = DateTimeValueObject::from('2018-01-01 10:10:10');
-        $event = DomainEventTested::test($messageId, $aggregateId, $aggregateVersion, $occurredOn, []);
+        $event = DomainEventTested::test(
+            $messageId,
+            AggregateId::from($aggregateId->value()),
+            $aggregateVersion,
+            $occurredOn,
+            [],
+        );
 
         $aggregateRoot = AggregateRootTested::reconstitute($aggregateId, ...[$event]);
 
@@ -80,7 +99,13 @@ class AggregateRootTest extends TestCase
         $messageId = Uuid::v4();
         $occurredOn = DateTimeValueObject::from('2018-01-01 10:10:10');
         $aggregateVersionInEvent = 1;
-        $event = DomainEventTested::test($messageId, $aggregateId, $aggregateVersionInEvent, $occurredOn, []);
+        $event = DomainEventTested::test(
+            $messageId,
+            AggregateId::from($aggregateId->value()),
+            $aggregateVersionInEvent,
+            $occurredOn,
+            [],
+        );
 
         $aggregateRoot->replay(...[$event]);
 

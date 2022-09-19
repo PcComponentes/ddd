@@ -6,6 +6,7 @@ namespace PcComponentes\Ddd\Tests\Domain\Model;
 use PcComponentes\Ddd\Domain\Model\DomainEvent;
 use PcComponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
 use PcComponentes\Ddd\Domain\Model\ValueObject\Uuid;
+use PcComponentes\Ddd\Util\Message\ValueObject\AggregateId;
 
 class DomainEventTested extends DomainEvent
 {
@@ -13,7 +14,7 @@ class DomainEventTested extends DomainEvent
 
     public static function test(
         Uuid $messageId,
-        Uuid $aggregateId,
+        AggregateId $aggregateId,
         int $aggregateVersion,
         DateTimeValueObject $occurredOn,
         array $payload

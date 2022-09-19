@@ -25,20 +25,20 @@ class AggregatemessageTest extends TestCase
         ];
 
         $tested =  AggregateMessageTested::fromPayload($messageId, $aggregateId, $occurredOn, $payload, $aggregateVersion);
-        $this->assertEquals($aggregateId, $tested->aggregateId());
+        $this->assertEquals($aggregateId->value(), $tested->aggregateId()->value());
         $this->assertEquals($occurredOn, $tested->occurredOn());
         $this->assertTrue($tested->assertPayloadCalled());
 
         $expected = [
-            'message_id' => $messageId,
+            'message_id' => $messageId->value(),
             'name' => 'example',
             'version' => 'v1',
             'type' => 'tested',
             'payload' => $payload,
             'aggregate_version' => $aggregateVersion,
-            'aggregate_id' => $aggregateId,
-            'occurred_on' => $occurredOn
+            'aggregate_id' => $aggregateId->value(),
+            'occurred_on' => \json_decode(\json_encode($occurredOn), true)
         ];
-        $this->assertEquals($expected, $tested->jsonSerialize());
+        $this->assertEquals($expected, \json_decode(\json_encode($tested), true));
     }
 }
