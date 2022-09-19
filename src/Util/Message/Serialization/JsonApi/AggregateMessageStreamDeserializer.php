@@ -22,6 +22,7 @@ final class AggregateMessageStreamDeserializer implements AggregateMessageUnseri
         $this->occurredOnFormat = $occurredOnFormat;
     }
 
+    /** @param AggregateMessageStream $message */
     public function unserialize($message): AggregateMessage
     {
         if (false === $message instanceof AggregateMessageStream) {
@@ -37,7 +38,7 @@ final class AggregateMessageStreamDeserializer implements AggregateMessageUnseri
         return $eventClass::fromPayload(
             Uuid::from($message->messageId()),
             AggregateId::from($message->aggregateId()),
-            DateTimeValueObject::fromFormat($this->occurredOnFormat, (string) $message->occurredOn()),
+            DateTimeValueObject::fromFormat($this->occurredOnFormat, $message->occurredOn()),
             \json_decode($message->payload(), true, 512, \JSON_THROW_ON_ERROR),
             $message->aggregateVersion(),
         );

@@ -39,9 +39,9 @@ final class AggregateMessageJsonApiSerializable implements AggregateMessageSeria
         $occurredOnValue = $occurredOn->format($this->occurredOnFormat);
 
         if ((string) (int) $occurredOnValue === $occurredOnValue) {
-            return (int) $occurredOn->format($this->occurredOnFormat);
+            return (int) $occurredOnValue;
         }
 
-        return $occurredOn->format($this->occurredOnFormat);
+        return $occurredOnValue;
     }
 }
