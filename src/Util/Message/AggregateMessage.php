@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace PcComponentes\Ddd\Util\Message;
 
 use PcComponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
-use PcComponentes\Ddd\Domain\Model\ValueObject\StringValueObject;
 use PcComponentes\Ddd\Domain\Model\ValueObject\Uuid;
 use PcComponentes\Ddd\Util\Message\ValueObject\AggregateId;
 
@@ -30,35 +29,11 @@ abstract class AggregateMessage extends Message
 
     final public static function fromPayload(
         Uuid $messageId,
-        StringValueObject $aggregateId,
+        AggregateId $aggregateId,
         DateTimeValueObject $occurredOn,
         array $payload,
         int $aggregateVersion = 0
     ): self {
-        if (false === $aggregateId instanceof Uuid && false === $aggregateId instanceof AggregateId) {
-            throw new \InvalidArgumentException(\sprintf(
-                "AggregateId value should be an instance of %s, %s given",
-                AggregateId::class,
-                \get_class($aggregateId),
-            ));
-        }
-
-        if ($aggregateId instanceof Uuid) {
-            $aggregateId = AggregateId::from($aggregateId->value());
-
-            if (\function_exists('trigger_deprecation')) {
-                @\trigger_deprecation(
-                    'pccomponentes/ddd',
-                    '3.0',
-                    \sprintf(
-                        "AggregateId value should be an instance of %s, %s given",
-                        AggregateId::class,
-                        \get_class($aggregateId),
-                    ),
-                );
-            }
-        }
-
         $message = new static($messageId, $aggregateId, $aggregateVersion, $occurredOn, $payload);
         $message->assertPayload();
 
