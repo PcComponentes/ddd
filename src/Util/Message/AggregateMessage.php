@@ -35,11 +35,19 @@ abstract class AggregateMessage extends Message
         array $payload,
         int $aggregateVersion = 0
     ): self {
-        if (\is_a($aggregateId, Uuid::class) || \is_subclass_of($aggregateId, Uuid::class)) {
+        if (false === $aggregateId instanceof Uuid && false === $aggregateId instanceof AggregateId) {
+            throw new \InvalidArgumentException(\sprintf(
+                "AggregateId value should be an instance of %s, %s given",
+                AggregateId::class,
+                \get_class($aggregateId),
+            ));
+        }
+
+        if ($aggregateId instanceof Uuid) {
             $aggregateId = AggregateId::from($aggregateId->value());
 
-            if(function_exists('trigger_deprecation')){
-                @trigger_deprecation(
+            if (\function_exists('trigger_deprecation')) {
+                @\trigger_deprecation(
                     'pccomponentes/ddd',
                     '3.0',
                     \sprintf(
@@ -49,12 +57,6 @@ abstract class AggregateMessage extends Message
                     ),
                 );
             }
-        } elseif (false === \is_a($aggregateId, AggregateId::class)) {
-            throw new \InvalidArgumentException(\sprintf(
-                "AggregateId value should be an instance of %s, %s given",
-                AggregateId::class,
-                \get_class($aggregateId),
-            ));
         }
 
         $message = new static($messageId, $aggregateId, $aggregateVersion, $occurredOn, $payload);

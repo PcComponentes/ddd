@@ -70,7 +70,7 @@ abstract class AggregateRoot implements \JsonSerializable
     final protected function apply(DomainEvent ...$events): void
     {
         foreach ($events as $event) {
-            if (false === $this->aggregateId->equalTo($event->aggregateId())) {
+            if ($this->aggregateId->value() !== $event->aggregateId()->value()) {
                 throw new \InvalidArgumentException(
                     \sprintf(
                         'The event with id %s not matching with the aggregate root with id %s.',
