@@ -22,7 +22,7 @@ final class AggregateMessageJsonApiSerializable implements AggregateMessageSeria
                 'data' => [
                     'message_id' => $message->messageId(),
                     'type' => $message::messageName(),
-                    'occurred_on' => $this->mapDateTime($message->occurredOn()),
+                    'occurred_on' => $message->occurredOn()->format($this->occurredOnFormat),
                     'attributes' => \array_merge(
                         ['aggregate_id' => $message->aggregateId()->value()],
                         $message->messagePayload(),
@@ -32,16 +32,5 @@ final class AggregateMessageJsonApiSerializable implements AggregateMessageSeria
             \JSON_THROW_ON_ERROR,
             512,
         );
-    }
-
-    private function mapDateTime(\DateTimeInterface $occurredOn): int|string
-    {
-        $occurredOnValue = $occurredOn->format($this->occurredOnFormat);
-
-        if ((string) (int) $occurredOnValue === $occurredOnValue) {
-            return (int) $occurredOnValue;
-        }
-
-        return $occurredOnValue;
     }
 }
