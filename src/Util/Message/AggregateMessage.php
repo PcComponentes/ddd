@@ -33,7 +33,7 @@ abstract class AggregateMessage extends Message
         DateTimeValueObject $occurredOn,
         array $payload,
         int $aggregateVersion = 0
-    ): self {
+    ): static {
         $message = new static($messageId, $aggregateId, $aggregateVersion, $occurredOn, $payload);
         $message->assertPayload();
 

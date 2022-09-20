@@ -18,7 +18,7 @@ abstract class AggregateRoot implements \JsonSerializable
         $this->aggregateVersion = $aggregateVersion;
     }
 
-    final public static function reconstitute(Uuid $id, DomainEvent ...$events): self
+    final public static function reconstitute(Uuid $id, DomainEvent ...$events): static
     {
         if (0 === \count($events)) {
             throw new \InvalidArgumentException('Can`t reconstitute without events');
