@@ -34,7 +34,7 @@ abstract class AggregateMessage extends Message
         DateTimeValueObject $occurredOn,
         array $payload,
         int $aggregateVersion = 0
-    ): self {
+    ): static {
         if (false === $aggregateId instanceof Uuid && false === $aggregateId instanceof AggregateId) {
             throw new \InvalidArgumentException(\sprintf(
                 "AggregateId value should be an instance of %s, %s given",
