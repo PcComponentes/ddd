@@ -5,6 +5,7 @@ namespace PcComponentes\Ddd\Tests\Domain\Model;
 use PcComponentes\Ddd\Domain\Model\SimpleAggregateRoot;
 use PcComponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
 use PcComponentes\Ddd\Domain\Model\ValueObject\Uuid;
+use PcComponentes\Ddd\Util\Message\ValueObject\AggregateId;
 
 final class SimpleAggregateRootTested extends SimpleAggregateRoot
 {
@@ -15,7 +16,7 @@ final class SimpleAggregateRootTested extends SimpleAggregateRoot
         $self->recordThat(
             DomainEventTested::fromPayload(
                 Uuid::v4(),
-                $aggregateId,
+                AggregateId::from($aggregateId->value()),
                 DateTimeValueObject::now(),
                 []
             )

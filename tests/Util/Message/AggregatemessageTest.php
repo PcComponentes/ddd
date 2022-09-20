@@ -5,6 +5,7 @@ namespace PcComponentes\Ddd\Tests\Util\Message;
 
 use PcComponentes\Ddd\Domain\Model\ValueObject\DateTimeValueObject;
 use PcComponentes\Ddd\Domain\Model\ValueObject\Uuid;
+use PcComponentes\Ddd\Util\Message\ValueObject\AggregateId;
 use PHPUnit\Framework\TestCase;
 
 class AggregatemessageTest extends TestCase
@@ -16,7 +17,7 @@ class AggregatemessageTest extends TestCase
     {
         AggregateMessageTested::set('example', 'v1', 'tested');
         $messageId = Uuid::from('212e0a16-ae32-4c80-a6e4-26577f4cf7c7');
-        $aggregateId = Uuid::from('bdb507b6-838b-46ff-9aeb-53ab8ac01e33');
+        $aggregateId = AggregateId::from('bdb507b6-838b-46ff-9aeb-53ab8ac01e33');
         $occurredOn = DateTimeValueObject::from('2018-01-01 01:01:01');
         $aggregateVersion = 0;
         $payload = [
