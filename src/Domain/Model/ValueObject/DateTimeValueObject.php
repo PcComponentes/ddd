@@ -6,6 +6,7 @@ namespace PcComponentes\Ddd\Domain\Model\ValueObject;
 class DateTimeValueObject extends \DateTimeImmutable implements ValueObject
 {
     private const TIME_ZONE = 'UTC';
+    private const TIME_FORMAT = 'Y-m-d\TH:i:s.uP';
 
     final private function __construct($time, $timezone)
     {
@@ -26,7 +27,7 @@ class DateTimeValueObject extends \DateTimeImmutable implements ValueObject
     {
         $dateTime = \DateTimeImmutable::createFromFormat($format, $str, new \DateTimeZone(self::TIME_ZONE));
 
-        return static::from($dateTime->format(\DATE_ATOM));
+        return static::from($dateTime->format(self::TIME_FORMAT));
     }
 
     final public static function fromTimestamp(int $timestamp): static
