@@ -5,4 +5,5 @@ namespace PcComponentes\Ddd\Domain\Model\ValueObject;
 
 interface ValueObject extends \JsonSerializable
 {
+    public function value(): mixed;
 }

@@ -109,4 +109,9 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
             static fn ($current) => $current !== $item,
         );
     }
+
+    public function value(): array
+    {
+        return $this->items;
+    }
 }

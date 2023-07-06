@@ -3,12 +3,12 @@ declare(strict_types=1);
 
 namespace PcComponentes\Ddd\Domain\Model\ValueObject;
 
-class DateTimeValueObject extends \DateTimeImmutable implements ValueObject
+class DateValueObject extends \DateTimeImmutable implements ValueObject
 {
     private const TIME_ZONE = 'UTC';
-    private const TIME_FORMAT = 'Y-m-d\TH:i:s.uP';
+    private const FORMAT = 'Y-m-d';
 
-    final private function __construct($time, $timezone)
+    final private function __construct(string $time, \DateTimeZone $timezone)
     {
         parent::__construct($time, $timezone);
     }
@@ -27,7 +27,9 @@ class DateTimeValueObject extends \DateTimeImmutable implements ValueObject
     {
         $dateTime = \DateTimeImmutable::createFromFormat($format, $str, new \DateTimeZone(self::TIME_ZONE));
 
-        return static::from($dateTime->format(self::TIME_FORMAT));
+        \assert($dateTime instanceof \DateTimeImmutable);
+
+        return static::from($dateTime->format(self::FORMAT));
     }
 
     final public static function fromTimestamp(int $timestamp): static
@@ -42,6 +44,6 @@ class DateTimeValueObject extends \DateTimeImmutable implements ValueObject
 
     final public function value(): string
     {
-        return $this->format(\DATE_ATOM);
+        return $this->format(self::FORMAT);
     }
 }
