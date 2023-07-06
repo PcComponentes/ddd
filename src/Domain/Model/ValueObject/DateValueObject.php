@@ -39,7 +39,7 @@ class DateValueObject extends \DateTimeImmutable implements ValueObject
 
     final public function jsonSerialize(): string
     {
-        return $this->format(self::FORMAT);
+        return $this->value();
     }
 
     final public function value(): string
