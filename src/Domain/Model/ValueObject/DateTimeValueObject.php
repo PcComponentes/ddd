@@ -39,4 +39,9 @@ class DateTimeValueObject extends \DateTimeImmutable implements ValueObject
     {
         return $this->format(\DATE_ATOM);
     }
+
+    final public function value(): string
+    {
+        return $this->format(\DATE_ATOM);
+    }
 }
