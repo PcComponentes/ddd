@@ -13,8 +13,10 @@ class DateTimeValueObjectTest extends TestCase
      */
     public function given_date_when_ask_to_get_info_then_return_expected_info()
     {
+        $expectedValue = '2000-01-02T03:04:05+00:00';
         $datetime = DateTimeValueObject::from('2000-01-02 03:04:05');
-        $this->assertEquals('2000-01-02T03:04:05+00:00', $datetime->jsonSerialize());
+        $this->assertEquals($expectedValue, $datetime->jsonSerialize());
+        $this->assertEquals($expectedValue, $datetime->value());
     }
 
     /**
