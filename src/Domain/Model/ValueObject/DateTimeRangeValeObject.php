@@ -58,6 +58,11 @@ class DateTimeRangeValeObject implements ValueObject
 
     public function jsonSerialize(): array
     {
+        return $this->value();
+    }
+
+    public function value(): mixed
+    {
         return [
             'start' => $this->start,
             'end' => $this->end,
