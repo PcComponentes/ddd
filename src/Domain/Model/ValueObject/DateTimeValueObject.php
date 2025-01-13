@@ -15,7 +15,9 @@ class DateTimeValueObject extends \DateTimeImmutable implements ValueObject
 
     final public static function from(string $str): static
     {
-        return new static($str, new \DateTimeZone(self::TIME_ZONE));
+        $timeZone = new \DateTimeZone(self::TIME_ZONE);
+
+        return (new static($str, $timeZone))->setTimezone($timeZone);
     }
 
     final public static function now(): static
