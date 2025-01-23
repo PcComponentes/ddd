@@ -18,8 +18,12 @@ class UniqueId extends StringValueObject
 
     public static function create(): static
     {
+        $value = \base_convert(\uniqid(), 16, 36);
+        $value = \str_pad($value, 10, '0', \STR_PAD_LEFT);
+        $value = \substr($value, -10);
+
         return self::from(
-            \strtoupper(\base_convert(\uniqid(), 16, 36)),
+            \strtoupper($value),
         );
     }
 
