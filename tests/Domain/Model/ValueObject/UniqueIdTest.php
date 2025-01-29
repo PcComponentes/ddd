@@ -28,7 +28,7 @@ class UniqueIdTest extends TestCase
     {
         $uid = UniqueId::create();
         $this->assertInstanceOf(UniqueId::class, $uid);
-        $this->assertMatchesRegularExpression('/^[0-9A-Z]{10}$/i', $uid->value());
+        $this->assertTrue(UniqueId::isValid($uid->value()));
     }
 
     /**
@@ -52,5 +52,30 @@ class UniqueIdTest extends TestCase
         $other = UniqueId::from('H7INVWHVPR');
 
         $this->assertFalse($str->equalTo($other));
+    }
+
+    /**
+     * @test
+     */
+    public function given_invalid_uid_value_when_construct_then_fail()
+    {
+        $this->expectException(\InvalidArgumentException::class);
+        UniqueId::from('12345');
+    }
+
+    /**
+     * @test
+     */
+    public function given_invalid_uid_value_when_ask_is_valid_then_return_false()
+    {
+        self::assertFalse(UniqueId::isValid('12345'));
+    }
+
+    /**
+     * @test
+     */
+    public function given_valid_uid_value_when_ask_is_valid_then_return_true()
+    {
+        self::assertTrue(UniqueId::isValid('H7HVQ2U72X'));
     }
 }

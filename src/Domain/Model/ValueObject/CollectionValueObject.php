@@ -95,6 +95,11 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         return $this->items[array_key_first($this->items)] ?? null;
     }
 
+    public function value(): array
+    {
+        return $this->items;
+    }
+
     protected function addItem($item): static
     {
         $items = $this->items;
@@ -108,10 +113,5 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         return $this->filter(
             static fn ($current) => $current !== $item,
         );
-    }
-
-    public function value(): array
-    {
-        return $this->items;
     }
 }
