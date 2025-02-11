@@ -5,13 +5,8 @@ grumphp:
         phpstan:
             autoload_file: phpstan.neon
             configuration: ~
-            level: 2
+            level: 3
         jsonlint: ~
-        phpcpd:
-            exclude:
-                - 'var'
-                - 'vendor'
-            min_lines: 60
         phpcs:
             standard:
                 - 'phpcs.xml.dist'
