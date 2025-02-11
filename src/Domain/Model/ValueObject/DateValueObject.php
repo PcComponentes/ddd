@@ -18,7 +18,7 @@ class DateValueObject extends \DateTimeImmutable implements ValueObject
     {
         $timeZone = new \DateTimeZone(self::TIME_ZONE);
 
-        return (new static($str, $timeZone))->setTimezone($timeZone);
+        return (new static($str, $timeZone))->setTimezone($timeZone)->setTime(0, 0, 0, 0);
     }
 
     final public static function now(): static
