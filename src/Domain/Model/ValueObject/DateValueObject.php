@@ -52,16 +52,14 @@ class DateValueObject extends \DateTimeImmutable implements ValueObject
         return static::createFromInterface($datetime->setTimezone($timeZone));
     }
 
-    final public static function fromFormat(string $format, string $str): static | false
+    final public static function fromFormat(string $format, string $str): static|false
     {
         return static::createFromFormat($format, $str, new \DateTimeZone(self::TIME_ZONE));
     }
 
     final public static function createFromTimestamp(float|int $timestamp): static
     {
-        $dateTime = \is_int($timestamp)
-            ? self::fromFormat('U', (string) $timestamp)
-            : self::fromFormat('U.u', \number_format($timestamp, 6, '.', ''));
+        $dateTime = self::fromFormat('U.u', \number_format((float) $timestamp, 6, '.', ''));
 
         \assert(false !== $dateTime, 'Unexpected error on create date time from timestamp');
 
@@ -83,15 +81,9 @@ class DateValueObject extends \DateTimeImmutable implements ValueObject
         return $this->format(self::FORMAT);
     }
 
-    final public function modify(string $modifier): static | false
+    final public function modify(string $modifier): static
     {
-        $dateTime = parent::modify($modifier);
-
-        if (false === $dateTime) {
-            return false;
-        }
-
-        return static::createFromInterface($dateTime);
+        return static::createFromInterface(parent::modify($modifier));
     }
 
     final public function add(\DateInterval $interval): static
@@ -99,37 +91,19 @@ class DateValueObject extends \DateTimeImmutable implements ValueObject
         return parent::add($interval);
     }
 
-    final public function setDate(int $year, int $month, int $day): static | false
+    final public function setDate(int $year, int $month, int $day): static
     {
-        $dateTime = parent::setDate($year, $month, $day);
-
-        if (false === $dateTime) {
-            return false;
-        }
-
-        return $dateTime;
+        return parent::setDate($year, $month, $day);
     }
 
-    final public function setISODate(int $year, int $week, int $dayOfWeek = 1): static | false
+    final public function setISODate(int $year, int $week, int $dayOfWeek = 1): static
     {
-        $dateTime = parent::setISODate($year, $week, $dayOfWeek);
-
-        if (false === $dateTime) {
-            return false;
-        }
-
-        return $dateTime;
+        return parent::setISODate($year, $week, $dayOfWeek);
     }
 
-    final public function setTime(int $hour, int $minute, int $second = 0, int $microsecond = 0): static | false
+    final public function setTime(int $hour, int $minute, int $second = 0, int $microsecond = 0): static
     {
-        $dateTime = parent::setTime($hour, $minute, $second, $microsecond);
-
-        if (false === $dateTime) {
-            return false;
-        }
-
-        return $dateTime;
+        return parent::setTime($hour, $minute, $second, $microsecond);
     }
 
     final public function setTimestamp(int $timestamp): static

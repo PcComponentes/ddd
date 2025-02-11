@@ -5,7 +5,7 @@ grumphp:
         phpstan:
             autoload_file: phpstan.neon
             configuration: ~
-            level: 3
+            level: 5
         jsonlint: ~
         phpcs:
             standard:
