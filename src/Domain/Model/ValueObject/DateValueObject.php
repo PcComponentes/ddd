@@ -59,7 +59,7 @@ class DateValueObject extends \DateTimeImmutable implements ValueObject
 
     final public static function createFromTimestamp(float|int $timestamp): static
     {
-        return self::fromFormat('U.u', \number_format($timestamp, 6, '.', ''));
+        return self::fromFormat('U.u', \number_format((float) $timestamp, 6, '.', ''));
     }
 
     final public static function fromTimestamp(int|float $timestamp): static
@@ -79,13 +79,7 @@ class DateValueObject extends \DateTimeImmutable implements ValueObject
 
     final public function modify(string $modifier): static
     {
-        $dateTime = parent::modify($modifier);
-
-        if (false === $dateTime) {
-            throw new \InvalidArgumentException('Invalid date modifier');
-        }
-
-        return static::createFromInterface($dateTime);
+        return static::createFromInterface(parent::modify($modifier));
     }
 
     final public function add(\DateInterval $interval): static
@@ -95,35 +89,17 @@ class DateValueObject extends \DateTimeImmutable implements ValueObject
 
     final public function setDate(int $year, int $month, int $day): static
     {
-        $dateTime = parent::setDate($year, $month, $day);
-
-        if (false === $dateTime) {
-            throw new \InvalidArgumentException('Invalid date provided');
-        }
-
-        return $dateTime;
+        return parent::setDate($year, $month, $day);
     }
 
     final public function setISODate(int $year, int $week, int $dayOfWeek = 1): static
     {
-        $dateTime = parent::setISODate($year, $week, $dayOfWeek);
-
-        if (false === $dateTime) {
-            throw new \InvalidArgumentException('Invalid ISO date provided');
-        }
-
-        return $dateTime;
+        return parent::setISODate($year, $week, $dayOfWeek);
     }
 
     final public function setTime(int $hour, int $minute, int $second = 0, int $microsecond = 0): static
     {
-        $dateTime = parent::setTime($hour, $minute, $second, $microsecond);
-
-        if (false === $dateTime) {
-            throw new \InvalidArgumentException('Invalid time provided');
-        }
-
-        return $dateTime;
+        return parent::setTime($hour, $minute, $second, $microsecond);
     }
 
     final public function setTimestamp(int $timestamp): static
