@@ -40,7 +40,7 @@ class DateTimeValueObject extends \DateTimeImmutable implements ValueObject
         string $format,
         string $datetime,
         ?\DateTimeZone $timezone = null
-    ): static | false {
+    ): static|false {
         $datetime = parent::createFromFormat($format, $datetime, $timezone);
 
         if (false === $datetime) {
