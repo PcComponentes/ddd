@@ -28,7 +28,6 @@ final class AggregateMessageStreamDeserializer implements AggregateMessageUnseri
         $this->occurredOnFormat = $occurredOnFormat;
     }
 
-    /** @param AggregateMessageStream $message */
     public function unserialize($message): AggregateMessage
     {
         if (false === $message instanceof AggregateMessageStream) {
