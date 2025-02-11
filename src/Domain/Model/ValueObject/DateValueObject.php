@@ -40,11 +40,11 @@ class DateValueObject extends \DateTimeImmutable implements ValueObject
         string $format,
         string $datetime,
         ?\DateTimeZone $timezone = null
-    ): static | false {
+    ): static {
         $datetime = parent::createFromFormat($format, $datetime, $timezone);
 
         if (false === $datetime) {
-            return false;
+            throw new \InvalidArgumentException('Invalid date format');
         }
 
         $timeZone = new \DateTimeZone(self::TIME_ZONE);
@@ -52,20 +52,14 @@ class DateValueObject extends \DateTimeImmutable implements ValueObject
         return static::createFromInterface($datetime->setTimezone($timeZone));
     }
 
-    final public static function fromFormat(string $format, string $str): static | false
+    final public static function fromFormat(string $format, string $str): static
     {
         return static::createFromFormat($format, $str, new \DateTimeZone(self::TIME_ZONE));
     }
 
     final public static function createFromTimestamp(float|int $timestamp): static
     {
-        $dateTime = \is_int($timestamp)
-            ? self::fromFormat('U', (string) $timestamp)
-            : self::fromFormat('U.u', \number_format($timestamp, 6, '.', ''));
-
-        \assert(false !== $dateTime, 'Unexpected error on create date time from timestamp');
-
-        return $dateTime;
+        return self::fromFormat('U.u', \number_format($timestamp, 6, '.', ''));
     }
 
     final public static function fromTimestamp(int|float $timestamp): static
@@ -83,12 +77,12 @@ class DateValueObject extends \DateTimeImmutable implements ValueObject
         return $this->format(self::FORMAT);
     }
 
-    final public function modify(string $modifier): static | false
+    final public function modify(string $modifier): static
     {
         $dateTime = parent::modify($modifier);
 
         if (false === $dateTime) {
-            return false;
+            throw new \InvalidArgumentException('Invalid date modifier');
         }
 
         return static::createFromInterface($dateTime);
@@ -99,34 +93,34 @@ class DateValueObject extends \DateTimeImmutable implements ValueObject
         return parent::add($interval);
     }
 
-    final public function setDate(int $year, int $month, int $day): static | false
+    final public function setDate(int $year, int $month, int $day): static
     {
         $dateTime = parent::setDate($year, $month, $day);
 
         if (false === $dateTime) {
-            return false;
+            throw new \InvalidArgumentException('Invalid date provided');
         }
 
         return $dateTime;
     }
 
-    final public function setISODate(int $year, int $week, int $dayOfWeek = 1): static | false
+    final public function setISODate(int $year, int $week, int $dayOfWeek = 1): static
     {
         $dateTime = parent::setISODate($year, $week, $dayOfWeek);
 
         if (false === $dateTime) {
-            return false;
+            throw new \InvalidArgumentException('Invalid ISO date provided');
         }
 
         return $dateTime;
     }
 
-    final public function setTime(int $hour, int $minute, int $second = 0, int $microsecond = 0): static | false
+    final public function setTime(int $hour, int $minute, int $second = 0, int $microsecond = 0): static
     {
         $dateTime = parent::setTime($hour, $minute, $second, $microsecond);
 
         if (false === $dateTime) {
-            return false;
+            throw new \InvalidArgumentException('Invalid time provided');
         }
 
         return $dateTime;
