@@ -80,9 +80,23 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         return 0 === $this->count();
     }
 
-    public function equalTo(CollectionValueObject $other): bool
+    public function equalTo(self $other): bool
     {
         return static::class === \get_class($other) && $this->items == $other->items;
+    }
+
+    public function equivalentTo(self $other): bool
+    {
+        if (static::class !== $other::class || $this->count() !== $other->count()) {
+            return false;
+        }
+
+        $sortFunc = static fn ($a, $b) => $a <=> $b;
+
+        $a = $this->sort($sortFunc);
+        $b = $other->sort($sortFunc);
+
+        return $a->equalTo($b);
     }
 
     final public function jsonSerialize(): array
@@ -92,7 +106,7 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
 
     public function first()
     {
-        return $this->items[array_key_first($this->items)] ?? null;
+        return $this->items[\array_key_first($this->items)] ?? null;
     }
 
     public function value(): array
