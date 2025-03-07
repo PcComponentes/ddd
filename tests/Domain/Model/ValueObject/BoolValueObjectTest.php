@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace PcComponentes\Ddd\Tests\Domain\Model\ValueObject;
 
+use PcComponentes\Ddd\Domain\Model\ValueObject\BoolValueObject;
 use PHPUnit\Framework\TestCase;
 
 class BoolValueObjectTest extends TestCase
@@ -12,7 +13,7 @@ class BoolValueObjectTest extends TestCase
      */
     public function given_true_when_ask_to_get_info_then_return_expected_info()
     {
-        $bool = BoolValueObjectTested::from(true);
+        $bool = BoolValueObject::from(true);
         $this->assertTrue($bool->value());
         $this->assertTrue($bool->isTrue());
         $this->assertFalse($bool->isFalse());
@@ -24,7 +25,7 @@ class BoolValueObjectTest extends TestCase
      */
     public function given_false_when_ask_to_get_info_then_return_expected_info()
     {
-        $bool = BoolValueObjectTested::from(false);
+        $bool = BoolValueObject::from(false);
         $this->assertFalse($bool->value());
         $this->assertFalse($bool->isTrue());
         $this->assertTrue($bool->isFalse());
