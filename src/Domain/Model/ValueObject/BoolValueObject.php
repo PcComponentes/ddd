@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace PcComponentes\Ddd\Domain\Model\ValueObject;
 
-abstract class BoolValueObject implements ValueObject
+class BoolValueObject implements ValueObject
 {
     private bool $value;
 

@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace PcComponentes\Ddd\Domain\Model\ValueObject;
 
-abstract class EnumValueObject extends StringValueObject
+class EnumValueObject extends StringValueObject
 {
     private static array $allowedValues;
 

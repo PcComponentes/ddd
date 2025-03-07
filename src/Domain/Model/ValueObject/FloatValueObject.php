@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace PcComponentes\Ddd\Domain\Model\ValueObject;
 
-abstract class FloatValueObject implements ValueObject
+class FloatValueObject implements ValueObject
 {
     private float $value;
 

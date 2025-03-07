@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace PcComponentes\Ddd\Domain\Model\ValueObject;
 
-abstract class IntValueObject implements ValueObject
+class IntValueObject implements ValueObject
 {
     private int $value;
 
