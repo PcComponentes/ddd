@@ -77,6 +77,11 @@ class DateTimeValueObject extends \DateTimeImmutable implements ValueObject
         return $this->format(self::FORMAT);
     }
 
+    final public function preciseValue(): string
+    {
+        return $this->format(self::TIME_FORMAT);
+    }
+
     final public function modify(string $modifier): static
     {
         return static::createFromInterface(parent::modify($modifier));
