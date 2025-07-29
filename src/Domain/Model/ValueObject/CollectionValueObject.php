@@ -52,6 +52,11 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         \array_walk($this->items, $func);
     }
 
+    public function find(callable $func)
+    {
+        return \array_find($this->items, $func);
+    }
+
     public function filter(callable $func): static
     {
         return static::from(\array_values(\array_filter($this->items, $func)));
