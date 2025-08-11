@@ -52,7 +52,7 @@ class CollectionValueObject implements \Iterator, \Countable, ValueObject
         \array_walk($this->items, $func);
     }
 
-    public function find(callable $func)
+    public function findOne(callable $func)
     {
         return \array_find($this->items, $func);
     }
