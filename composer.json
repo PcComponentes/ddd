@@ -28,7 +28,7 @@
     }
   },
   "require": {
-    "php": "^8.0",
+    "php": "^8.4",
     "ext-json": "*",
     "ramsey/uuid": "^4.2"
   },

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace PcComponentes\Ddd\Tests\Domain\Model\ValueObject;
 
 use PcComponentes\Ddd\Domain\Model\ValueObject\CollectionValueObject;
+use PcComponentes\Ddd\Domain\Model\ValueObject\FloatValueObject;
 use PHPUnit\Framework\TestCase;
 
 class CollectionValueObjectTest extends TestCase
@@ -96,6 +97,19 @@ class CollectionValueObjectTest extends TestCase
     }
 
     /** @test */
+    public function given_collection_when_iterate_with_foreach_then_keep_items_and_keys()
+    {
+        $collection = CollectionValueObject::from(['a' => 1, 'b' => 2]);
+        $iterated = [];
+
+        foreach ($collection as $key => $item) {
+            $iterated[$key] = $item;
+        }
+
+        $this->assertEquals(['a' => 1, 'b' => 2], $iterated);
+    }
+
+    /** @test */
     public function given_two_identical_collections_when_ask_to_check_equality_then_return_true()
     {
         $collection = CollectionValueObject::from([1, 2, 3, 4]);
@@ -129,12 +143,12 @@ class CollectionValueObjectTest extends TestCase
             [['1', '1', '1', '4'], ['4', '1', '1', '1']],
             [
                 [
-                    FloatValueObjectTested::from(1.1),
-                    FloatValueObjectTested::from(6.0),
+                    FloatValueObject::from(1.1),
+                    FloatValueObject::from(6.0),
                 ],
                 [
-                    FloatValueObjectTested::from(1.1),
-                    FloatValueObjectTested::from(6.0),
+                    FloatValueObject::from(1.1),
+                    FloatValueObject::from(6.0),
                 ],
             ],
             [[$objet1, $objet2], [$objet1, $objet2]],
@@ -170,12 +184,12 @@ class CollectionValueObjectTest extends TestCase
             [['1', '1', '4', '4'], ['4', '1', '1', '1']],
             [
                 [
-                    FloatValueObjectTested::from(1.1),
-                    FloatValueObjectTested::from(6.0),
+                    FloatValueObject::from(1.1),
+                    FloatValueObject::from(6.0),
                 ],
                 [
-                    FloatValueObjectTested::from(1.3),
-                    FloatValueObjectTested::from(6.0),
+                    FloatValueObject::from(1.3),
+                    FloatValueObject::from(6.0),
                 ],
             ],
         ];
@@ -213,6 +227,26 @@ class CollectionValueObjectTest extends TestCase
 
         $this->assertEquals([1, 2, 3, 4], $collection->jsonSerialize());
         $this->assertEquals([1, 2, 4], $newCollection->jsonSerialize());
+    }
+
+    /** @test */
+    public function given_an_empty_collection_when_ask_to_obtain_current_item_then_return_null()
+    {
+        $collection = CollectionValueObject::from([]);
+
+        $this->assertNull($collection->current());
+    }
+
+    /** @test */
+    public function given_a_collection_when_ask_to_obtain_current_item_then_return_expected_item()
+    {
+        $collection = CollectionValueObject::from([1, 2, 3, 4]);
+
+        $this->assertSame(1, $collection->current());
+
+        $collection->next();
+
+        $this->assertSame(2, $collection->current());
     }
 
     /** @test */

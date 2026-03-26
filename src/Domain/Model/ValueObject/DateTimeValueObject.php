@@ -40,11 +40,11 @@ class DateTimeValueObject extends \DateTimeImmutable implements ValueObject
         string $format,
         string $datetime,
         ?\DateTimeZone $timezone = null
-    ): static|false {
+    ): static {
         $datetime = parent::createFromFormat($format, $datetime, $timezone);
 
         if (false === $datetime) {
-            return false;
+            throw new \InvalidArgumentException('Invalid date format');
         }
 
         $timeZone = new \DateTimeZone(self::TIME_ZONE);
@@ -52,18 +52,14 @@ class DateTimeValueObject extends \DateTimeImmutable implements ValueObject
         return static::createFromInterface($datetime->setTimezone($timeZone));
     }
 
-    final public static function fromFormat(string $format, string $str): static|false
+    final public static function fromFormat(string $format, string $str): static
     {
         return static::createFromFormat($format, $str, new \DateTimeZone(self::TIME_ZONE));
     }
 
     final public static function createFromTimestamp(float|int $timestamp): static
     {
-        $dateTime = self::fromFormat('U.u', \number_format((float) $timestamp, 6, '.', ''));
-
-        \assert(false !== $dateTime, 'Unexpected error on create date time from timestamp');
-
-        return $dateTime;
+        return self::fromFormat('U.u', \number_format((float) $timestamp, 6, '.', ''));
     }
 
     final public static function fromTimestamp(int|float $timestamp): static
