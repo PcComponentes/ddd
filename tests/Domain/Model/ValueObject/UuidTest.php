@@ -33,6 +33,26 @@ class UuidTest extends TestCase
     /**
      * @test
      */
+    public function given_uuid_class_when_ask_to_generate_an_uuid_v7_then_return_uuid_instance()
+    {
+        $uuid = Uuid::v7();
+        $this->assertInstanceOf(Uuid::class, $uuid);
+        $this->assertMatchesRegularExpression('/^[0-9A-F]{8}-[0-9A-F]{4}-7[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i', $uuid->value());
+    }
+
+    /**
+     * @test
+     */
+    public function given_uuid_class_when_ask_to_create_then_return_a_v7_uuid_instance()
+    {
+        $uuid = Uuid::create();
+        $this->assertInstanceOf(Uuid::class, $uuid);
+        $this->assertMatchesRegularExpression('/^[0-9A-F]{8}-[0-9A-F]{4}-7[0-9A-F]{3}-[89AB][0-9A-F]{3}-[0-9A-F]{12}$/i', $uuid->value());
+    }
+
+    /**
+     * @test
+     */
     public function given_two_identical_uuids_when_ask_to_check_equality_then_return_true()
     {
         $str = Uuid::from('f25144ac-2ce2-4b14-9d90-494b89fc09e2');
